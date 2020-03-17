@@ -1,0 +1,27 @@
+.A {
+  margin-top: 20%;
+  margin-left: 40%;
+  background: yellow;
+  width: 600px;
+  height: 200px;
+  text-align: center;
+  border-style: solid;
+  border-width: 10px;
+  border-color: red;
+}
+
+.B {
+  margin-top: 20%;
+  margin-left: 40%;
+  position: absolute;
+  background: white;
+  width: 600px;
+  height: 200px;
+  top: 100px;
+  left: 100px;
+  text-align: center;
+  border-style: solid;
+  border-width: 10px;
+  border-color: blue;
+}
+/*# sourceMappingURL=zad_01.css.map */

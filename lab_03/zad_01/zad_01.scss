@@ -1,0 +1,23 @@
+.content {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+    grid-template-rows: repeat(5, 100px);
+    @for $i from 0 to 25 {
+        div:nth-child(#{$i +1}) {
+            @if $i%2 == 0 {
+                background: grey;
+            }
+            @else {
+                background: sandybrown;
+            }
+        }
+    }
+
+    .field {
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        color: white;
+        font-size: xx-large;
+    }
+}

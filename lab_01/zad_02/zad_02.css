@@ -1,0 +1,24 @@
+.links {
+  margin-left: 10px;
+  position: fixed;
+  border-style: solid;
+  border-width: 5px;
+  border-color: grey;
+  width: 90%;
+  height: 20px;
+  text-align: center;
+}
+
+.links .link {
+  color: brown;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.par {
+  position: absolute;
+  margin-top: 40px;
+  background: lightgrey;
+}
+/*# sourceMappingURL=zad_02.css.map */
