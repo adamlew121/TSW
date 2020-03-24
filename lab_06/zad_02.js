@@ -7,7 +7,7 @@ const fun1 = () => {
 
 const fun2 = () => {
     console.log("fun2 wywolana");
-    cb();
+    cb("fun2");
 }
 
 const fun3 = () => {
@@ -17,26 +17,29 @@ const fun3 = () => {
 
 const fun4 = () => {
     console.log("fun4 wywolana");
-    cb();
+    cb("fun4");
 }
 
 const fun5 = () => {
     console.log("fun5 wywolana");
-    cb();
+    cb("fun5");
 }
 
 
 const fcb = () => {
+    console.log("lista: " + msgs);
     console.log("fcb wywolana")
 }
 
-const cb = (fun, cb) => {
+const cb = (msg, cb) => {
     setTimeout(() => {
+        msgs.push(msg);
     }, Math.random * 1000);
 }
 
+var msgs;
 
-const poKolei = (funTab,fcb) =>  {
+const poKolei2 = (funTab,fcb) =>  {
     while(true) {
         if(funTab.length > 0) {
             funTab[0]();
@@ -50,4 +53,4 @@ const poKolei = (funTab,fcb) =>  {
 
 
 }
-console.log(poKolei([fun1,fun2,fun3,fun4,fun5],fcb));
+console.log(poKolei2([fun1,fun2,fun3,fun4,fun5],fcb));
