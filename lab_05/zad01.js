@@ -17,4 +17,15 @@ const groupBy = (tab, key) => {
     return res;
 }
 
+let x = 10;
+var y = 10;
+
+const nextZad = () => {
+    if (true) {
+        console.log(" true " + x + " " + y);
+    }
+    console.log( " pozniej " + x + " " + y);
+}
+
 console.log(groupBy([3,2,4,4,3], n => n % 2 === 0));
+console.log(nextZad());
