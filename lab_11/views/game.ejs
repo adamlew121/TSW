@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mastermind</title>
+    <link rel='stylesheet' href='/css/style.css' />
+    <script src='/lib/axios.min.js'></script>
+    <script src='/js/skrypt.js'></script>
+  </head>
+  <body>
+    <div id="ui">
+      <p>
+      Jako dane proszę wpisywać liczby oddzielone przecinkami np 1,2,3,4,5. W przypadku wpisania nieprawidłowych danych w consoli wyświetli się komunikat.
+      </p>
+
+      <div id="create-game">
+        <h1>Nowa Gra</h1>
+        <form>
+          <input type="number" id="size" placeholder="Ilosc elementow">
+          <input type="number" id="dim" placeholder="Najwyzsza wartosc elementow">
+          <input type="number" id="max" placeholder="Ilosc prob (0 => infinity)">
+          <button type="submit">New Game</button>
+        </form>
+      </div>
+
+      <ul id="table">
+        
+      </ul> 
+    </div>
+  </body>
+</html>
