@@ -25,8 +25,8 @@ document.onreadystatechange = () => {
         // Po kliknięciu guzika „Połącz” tworzymy nowe połączenie WS
         open.addEventListener("click", () => {
             open.disabled = true;
-            chat = io(`http://${location.host}/chat`);
-            news = io(`http://${location.host}/news`);
+            chat = io(`https://${location.host}/chat`);
+            news = io(`https://${location.host}/news`);
 
             chat.on("connect", () => {
                 close.disabled = false;

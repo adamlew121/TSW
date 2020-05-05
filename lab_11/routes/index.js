@@ -128,6 +128,7 @@ router
     // (tsw-mongo-crud) użyjemy tutaj async/await
     .post(async (req, res) => {
         try {
+            console.log(req.body);
             let passwordHash = bcrypt.hash(req.body.password);
             let user = new User({
                 username: req.body.username,

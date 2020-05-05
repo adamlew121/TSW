@@ -127,6 +127,7 @@ router
     // „dla treningu”, inaczej niż w przykładzie z wykładu
     // (tsw-mongo-crud) użyjemy tutaj async/await
     .post(async (req, res) => {
+        console.log(req.body);
         try {
             let passwordHash = bcrypt.hash(req.body.password);
             let user = new User({

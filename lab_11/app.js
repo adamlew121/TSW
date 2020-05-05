@@ -8,6 +8,9 @@ const io = socketio.listen(httpServer);
 
 app.use(serveStatic("public"));
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // io.set('heartbeat timeout', 10);
 // io.set('heartbeat interval', 10);
 const cookieSession = require("cookie-session");
@@ -33,6 +36,8 @@ app.use(sass({
     debug: true,
     outputStyle: "compressed",
 }));
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // w zależności od trybu działania wybieramy odpowiedni poziom logowania
 if ("development" === env) {
