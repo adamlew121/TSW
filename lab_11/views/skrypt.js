@@ -1,6 +1,7 @@
 /*global io: false */
+/* globals axios: false */
+// https://github.com/axios/axios
 "use strict";
-
 // Inicjalizacja UI
 document.onreadystatechange = () => {
     if (document.readyState === "interactive") {
@@ -16,8 +17,12 @@ document.onreadystatechange = () => {
         const newsMessage	= document.getElementById("newsMessage");
         const greenBullet = "img/bullet_green.png";
         const redBullet   = "img/bullet_red.png";
+        const newTitle = document.getElementById("newTitle");
+        const createRoom = document.getElementById("createRoom");
+        const chatRooms = document.getElementById("chatRooms");
+        refreshChatRooms();
 
-        let chat, news;
+        let chat, news; 
 
         close.disabled = true;
         chatSend.disabled = true;
@@ -78,5 +83,73 @@ document.onreadystatechange = () => {
             console.log(`Wysłałem wiadomość /news: ${newsText.value}`);
             newsText.value = "";
         });
+
+        createRoom.addEventListener("click", () => {
+            console.log('createRoom click ;**');
+            axios.post("/chat", {title: newTitle.value})
+                .then((resp) => {
+                    console.log('odpowiedz serwera na post /chat');
+                    //console.dir(resp.data);
+                    console.log('later...');
+                    refreshChatRooms();
+                });
+        });
     }
 };
+
+function refreshChatRooms () {
+    var tempList = [];
+    axios.get("/chatRooms")
+        .then((resp) => {
+            console.log('odpowiedz serwera na get /chatRooms');
+            console.dir(resp.data);
+            tempList = resp.data;
+
+            chatRooms.innerHTML = '';
+            var index;
+
+            for(index = 0; index < tempList.length; ++index) {
+                const title = (tempList[index]).title;
+                var node = document.createElement("LI");
+                var labelText = document.createTextNode(title);
+                node.appendChild(labelText);
+                var button = document.createElement("BUTTON");
+                var buttonText = document.createTextNode("Enter chatroom");
+                button.appendChild(buttonText);
+                button.addEventListener('click', function() {
+                    enterChatroom(title);
+                });
+                node.appendChild(button);
+                chatRooms.insertBefore(node, chatRooms.childNodes[chatRooms.childElementCount + 1]);
+            }
+        }); 
+}
+
+function enterChatroom (chatroom) {
+    console.log("Entering chatroom: " + chatroom);
+    chat = io(`https://${location.host}/` + chatroom);
+    
+    chat.on("connect", () => {
+        close.disabled = false;
+        chatSend.disabled = false;
+        chatStatus.src = greenBullet;
+        console.log("Nawiązano połączenie z kanałem „/" + chatroom + "”");
+    });
+    chat.on("disconnect", () => {
+        open.disabled = false;
+        chatStatus.src = redBullet;
+        console.log("Połączenie z kanałem „/chat” zostało zakończone");
+    });
+    chat.on("message", (data) => {
+        chatMessage.textContent = data;
+    });
+
+    chatSend.addEventListener("click", () => {
+        chat.emit("message", chatText.value);
+        console.log(`Wysłałem wiadomość /chat: ${chatText.value}`);
+        chatText.value = "";
+    });
+}
+
+function generateChatData (chatroom) 
+

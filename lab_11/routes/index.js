@@ -7,7 +7,7 @@
 const express = require("express");
 const router =  express.Router();
 const User = require("../model/index");
-const Game = require("../model/game");
+const Chat = require("../model/chat");
 
 // Passport.js i narzędzie do szyfrowania haseł
 const passport = require("../passport");
@@ -150,22 +150,65 @@ router
     })
     .all(rejectMethod);
 
+// router
+//     .route("/saveGame")
+//     .post((req,res) => {
+//         try {        
+//             let game = new Game({
+//                 username: currentUser.username,
+//                 gameData: req.body
+//             });
+//             game.save();
+//         } catch (err) {
+//                 res.status(422).json(Game.processErrors(err));
+//         }
+//     })
+//     .all(rejectMethod);
+
+// przykładowe „API” – oczwiście musi być serwowane przez HTTPS!
+
 router
-    .route("/saveGame")
-    .post((req,res) => {
-        try {        
-            let game = new Game({
-                username: currentUser.username,
-                gameData: req.body
+    .route("/chat")
+    .post(async (req,res) => {
+        try {
+            console.log(req.body);
+            let chat = new Chat({
+                title: req.body.title,
+                messageData: ["new chat"]
             });
-            game.save();
+            chat.save();
+            await res.redirect("/");
         } catch (err) {
-                res.status(422).json(Game.processErrors(err));
+            res.status(422).json(Chat.processErrors(err));
         }
+    })
+    .get((req, res) => {
+        console.log('get chat?');
+        req.user = currentUser;
+        res.render("chat", {
+            isAuthenticated: req.isAuthenticated(),
+            user: req.user,
+            chatRoom: req.chat
+        })
     })
     .all(rejectMethod);
 
-// przykładowe „API” – oczwiście musi być serwowane przez HTTPS!
+router
+    .route("/chatRooms")
+    .get(async (req,res) => {
+        try{
+            console.log('chatRooms get');
+            Chat.find({}, function(err, chats) {
+                if(chats) {
+                    res.send(chats);
+                }
+            });
+        } catch (err) {
+            res.status(422).json(Chat.processErrors(err));
+        }
+    })
+    .all(rejectMethod);  
+
 router
     .route("/api/users")
     // tutaj uwierzytelniamy się przez HTTP – metodą Basic
