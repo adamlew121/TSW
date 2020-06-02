@@ -3,15 +3,37 @@
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "adamlew121 <adam.lew121@gmail.com>",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "concurrently \"npm run dev\" \"cd ../server && nodemon src/app.js\"",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "seed": "node seed"
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.26.0",
+    "mongodb": "^3.5.8",
+    "mongoose": "^5.9.16",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
@@ -72,6 +94,9 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
+  },
+  "browser": {
+    "fs": false
   },
   "browserslist": [
     "> 1%",

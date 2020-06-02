@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("../../../client/node_modules/bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 
 // UWAGA! poniżej wykorzystujemy metody synchroniczne bcrypt

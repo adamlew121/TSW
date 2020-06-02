@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../../../client/node_modules/mongoose");
 
 (async () => {
     try {

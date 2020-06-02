@@ -1,16 +1,12 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
+const express = require('../../client/node_modules/express')
+const bodyParser = require('../../client/node_modules/body-parser')
+const cors = require('../../client/node_modules/cors')
+const morgan = require('../../client/node_modules/morgan')
 const config = require('./config/config')
-const socketio = require("socket.io");
-// const formatMessage = require('./utils/messages');
-// const {
-//   userJoin,
-//   getCurrentUser,
-//   userLeave,
-//   getRoomUsers
-// } = require('./utils/users');
+const socketio = require("../../client/node_modules/socket.io");
+const fs = eval('require("fs")')
+const https = eval('require("https")')
+
 
 const app = express();
 
@@ -27,11 +23,15 @@ app.use((_, res) => {
     // Not Found
     res.sendStatus(404);
 });
-// require('./routes')(app)
-const server = require("../https")(app);
+var privateKey = fs.readFileSync(__dirname + "\\my.key")
+var certificate = fs.readFileSync(__dirname + "\\my.crt")
+var credentials = {key: privateKey, cert: certificate}
+
+
+
+const server = https.createServer(credentials, app);
 const io = socketio(server);
 
-// const botName = 'ChatCord Bot';
 
 io.on('connection', function(socket) {
     // console.log(socket.id)
@@ -45,7 +45,6 @@ io.on('connection', function(socket) {
     });
 });
 
-// app.uszanowanko = io
 
 
 const port = config.port

@@ -1,4 +1,4 @@
-const passport = require('passport')
+const passport = require('../../../client/node_modules/passport')
 
 module.exports = function (req, res, next) {
     passport.authenticate('jwt', function (err, user) {
