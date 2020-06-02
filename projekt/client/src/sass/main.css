@@ -1,0 +1,40 @@
+.main-app {
+  background: white;
+  padding: 20px;
+  margin-top: 40px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.main-app input {
+  font-size: 20px;
+}
+
+html {
+  margin: auto 10px;
+  width: auto;
+  height: 2000px;
+  background-color: white;
+}
+
+.mid-app {
+  position: fixed;
+  background: white;
+  font-size: 20px;
+  margin-left: 10%;
+  top: 10%;
+  width: 80%;
+}
+
+.mid-app .main-table {
+  text-align: left;
+}
+
+.mid-app .main-table td {
+  padding-right: 20px;
+}
+
+.mid-app .main-table tr {
+  font-size: 18px;
+}
+/*# sourceMappingURL=main.css.map */

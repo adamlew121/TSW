@@ -1,7 +1,7 @@
 <template>
-<div>
-  You have {{notes.length}} new notifications!
-  <div v-for="note in notes" :key="note.id">
+<div class="noteBox">
+  <p class="noteBoxText">You have {{notes.length}} new notifications!</p>
+  <div v-for="note in notes" :key="note.id" class="noteBoxText">
     {{note.senderUserName}} has sent you new message! Check your chats
   </div>
 </div>
@@ -21,4 +21,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/notifications.css'
+</style>

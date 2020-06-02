@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-app">
     <h1>Register</h1>
 
     <input
@@ -61,4 +61,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+</style>

@@ -1,0 +1,40 @@
+$main-bg-color: white;
+
+.navBar {
+
+  font-size: 25px;
+  padding: 5px;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
+  border-left-color: $main-bg-color;
+  border-color: grey;
+  width: 80%;
+  height: 28px;
+  text-align: center;
+
+  .navElem{
+      color: green;
+      font-size: 25px;
+      padding: 10px;
+      border-color: grey;
+      border-style: solid;
+      border-width: 0px;
+  }
+
+  .navButton {
+  font-size: 25px;
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+  color: green;
+  text-decoration: underline;
+  border-color: grey;
+  border-style: solid;
+  border-width: 0px;
+  cursor: pointer;
+  }
+}

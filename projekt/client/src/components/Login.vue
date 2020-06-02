@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-app">
     <h1>Login</h1>
     <input
       type="text"
@@ -57,4 +57,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+</style>

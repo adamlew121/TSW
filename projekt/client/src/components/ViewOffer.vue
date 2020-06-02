@@ -1,13 +1,18 @@
 <template>
-<div>
+<div class="offer-create">
   <h1>Offer Details</h1>
+  <hr/>
+  <p>
     Title:   {{offer.title}}
-    <br />
+  </p>
+  <p>
     Price:   {{offer.price}}
-    <br />
-    Bids?:   {{offer.bidding}}
-    <br />
-    Creator: {{offer.author}}
+  </p>
+  <p>
+   Is bidding enabled:   {{offer.bidding}}
+  </p>
+    Creator: {{author.username}}
+    <hr/>
       <div v-if="!isAuthor(offer) && isLoggedIn()">
       <button @click="navigateTo({
         name: 'chat',
@@ -69,10 +74,12 @@
 
 <script>
 import OffersService from '@/services/OffersService'
+import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
       offer: {},
+      author: '',
       canBuy: false,
       canEdit: false,
       canStartBidding: false,
@@ -123,6 +130,7 @@ export default {
     const offerId = this.$store.state.route.params.offerId
     this.offer = (await OffersService.show(offerId)).data
     console.log(this.offer)
+    this.author = (await AuthenticationService.show(this.offer.author)).data
 
     if (this.$store.state.isUserLoggedIn) {
       if (this.offer.author === this.$store.state.user._id && !this.offer.closed && this.offer.biddingStatus === 1) {
@@ -155,8 +163,9 @@ export default {
       }
     }
   }
-
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/offer.css'
+</style>

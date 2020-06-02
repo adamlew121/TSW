@@ -1,9 +1,14 @@
 <template>
-<div>
-  <div v-for="user in visibleUsers" :key="user.id">
-    {{user.username}}
-    /// {{user._id}}
-    <button
+<div class="main-app">
+
+  <table class="cstTable">
+    <tr>
+      <th>Username</th>
+      <th>Details</th>
+    </tr>
+  <tr v-for="user in visibleUsers" :key="user.id">
+    <td>{{user.username}}</td>
+    <td><button
     @click="navigateTo({
       name: 'chat',
       params: {
@@ -12,12 +17,15 @@
       })">
       View Chat
       </button>
-      <div v-if="totalPages() > 0" class="pagination-wrapper">
+    </td>
+  </tr>
+  </table>
+  <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
     <span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt; </span>
   </div>
-  </div>
+
 </div>
 </template>
 
@@ -69,4 +77,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+@import '../sass/tables.css';
+</style>

@@ -1,0 +1,17 @@
+.offer-create {
+  position: absolute;
+  font-size: 20px;
+  width: 50%;
+  top: 10%;
+  margin-left: 10%;
+}
+
+.offer-create input {
+  font-size: 20px;
+}
+
+.offer-create button {
+  font-size: 20px;
+  padding: 5px;
+}
+/*# sourceMappingURL=offer.css.map */

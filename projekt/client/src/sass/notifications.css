@@ -1,0 +1,23 @@
+.noteBox {
+  position: absolute;
+  margin-top: 15%;
+  margin-left: 25%;
+  margin-right: 25%;
+  background: lightgrey;
+  width: 50%;
+  height: 200px;
+  text-align: center;
+  border-style: solid;
+  border-width: 10px;
+  border-color: darkgreen;
+}
+
+.noteBox .noteBoxText {
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 25%;
+  width: 100%;
+  margin-top: -0.5em;
+}
+/*# sourceMappingURL=notifications.css.map */

@@ -1,18 +1,13 @@
 <template>
-<div>
-    <h2>Nav Bar</h2>
+<div class="navBar">
     <nav>
-      <div v-if="!$store.state.isUserLoggedIn">
-      <router-link to="/login">Login</router-link>
-      <router-link to="/register">Register</router-link>
-      </div>
-      <div v-if="$store.state.isUserLoggedIn">
-        <router-link to="/historyBidding">Active-Biddings</router-link>
-        <router-link to="/history">History</router-link>
-        <router-link to="/chats">Chats</router-link>
-        <button @click="logout">Log Out</button>
-      </div>
-      <router-link to="/offers">Offers</router-link>
+      <router-link v-if="!$store.state.isUserLoggedIn" class="navElem" to="/login">Login</router-link>
+      <router-link v-if="!$store.state.isUserLoggedIn" class="navElem" to="/register">Register</router-link>
+      <router-link v-if="$store.state.isUserLoggedIn" class="navElem" to="/historyBidding">Active-Biddings</router-link>
+      <router-link v-if="$store.state.isUserLoggedIn" class="navElem" to="/history">History</router-link>
+      <router-link v-if="$store.state.isUserLoggedIn" class="navElem" to="/chats">Chats</router-link>
+      <router-link class="navElem" to="/offers">Offers</router-link>
+      <button v-if="$store.state.isUserLoggedIn" class="navButton" @click="logout">Log Out</button>
     </nav>
   </div>
 </template>
@@ -32,5 +27,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import '../sass/pageHeader.css'
 </style>

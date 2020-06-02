@@ -1,13 +1,20 @@
 <template>
-<div>
+<div class="main-app">
 
-    <div v-for="offer in visibleOffers" :key="offer.id">
-    {{offer.title}}
-    {{offer.price}}
-    {{offer.bidding}}
-    {{offer.author}}
-    /// {{offer._id}}
-    <button
+    <table class="cstTable">
+    <tr>
+      <th>Status</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Option</th>
+      <th>Details</th>
+    </tr>
+  <tr v-for="(offer) in visibleOffers" :key="offer.id">
+    <td> {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} </td>
+    <td>{{offer.title}}</td>
+    <td>{{offer.price}}</td>
+    <td>{{getOption(offer)}}</td>
+    <td><button
     @click="navigateTo({
       name: 'offer',
       params: {
@@ -15,12 +22,14 @@
         }
       })">
       View Offer
-      </button>
-      <div v-if="totalPages() > 0" class="pagination-wrapper">
+    </button>
+    </td>
+  </tr>
+  </table>
+  <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
     <span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt; </span>
-  </div>
   </div>
 </div>
 </template>
@@ -58,6 +67,23 @@ export default {
     },
     showNextLink () {
       return this.currentPage !== (this.totalPages() - 1)
+    },
+    isAuthor (offer) {
+      return this.$store.state.isUserLoggedIn && offer.author === this.$store.state.user._id
+    },
+    getOption (offer) {
+      if (offer.bidding && offer.biddingStatus === 1) {
+        return 'Bidding not started'
+      }
+      if (!offer.bidding && !offer.closed) {
+        return 'Buy now'
+      }
+      if (offer.closed) {
+        return 'Bought'
+      }
+      if (offer.bidding && offer.biddingStatus === 2) {
+        return 'Bidding in progress'
+      }
     }
   },
   async mounted () {
@@ -67,10 +93,14 @@ export default {
       })
     } else {
       this.offers = (await OffersService.history()).data
+      console.log(this.offers)
       this.updateVisibleOffers()
     }
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+@import '../sass/tables.css';
+</style>

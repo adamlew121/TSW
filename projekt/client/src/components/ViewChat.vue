@@ -1,24 +1,24 @@
 <template>
-  <div class="card mt-3">
-      <div class="card-body">
-          <div class="card-title">
-              <h3>Chat with user: {{receiver.username}}</h3>
-              <hr>
-          </div>
-          <div class="card-body">
-              <div class="bids" v-for="(msg, index) in messages" :key="index">
-                  <p><span class="font-weight-bold">{{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}: </span>{{ msg.text }} /// {{ formatDate(new Date(msg.createdAt)) }}</p>
-              </div>
-          </div>
+  <div class="mid-app">
+      <div>
+        <h3>Chat with user: {{receiver.username}}</h3>
+        <hr>
+        <table class="main-table">
+        <tr v-for="(msg, index) in messages" :key="index">
+         <td> {{ formatDate(new Date(msg.createdAt)) }}, </td>
+         <td>{{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}: </td>
+         <td> {{ msg.text }} </td>
+        </tr>
+
+        </table>
       </div>
-      <div class="card-footer">
-          <form @submit.prevent="sendMessage">
-              <div class="gorm-group pb-3">
-                  <label for="price">Your Message:</label>
-                  <input type="text" v-model="message" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">Send</button>
-          </form>
+      <div>
+        <form @submit.prevent="sendMessage">
+          <div>
+            <input type="text" v-model="message">
+          </div>
+          <button type="submit">Send</button>
+        </form>
       </div>
   </div>
 </template>
@@ -65,7 +65,7 @@ export default {
       }
     },
     formatDate (date) {
-      return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' - ' + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()
+      return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + ' - ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
     }
   },
   async mounted () {
@@ -101,4 +101,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+@import '../sass/tables.css';
+</style>

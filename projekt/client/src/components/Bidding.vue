@@ -1,25 +1,26 @@
 <template>
-  <div class="card mt-3">
-      <div class="card-body">
-          <div class="card-title">
-              <h3>Chat Group for offer id: {{offer._id}}</h3>
-              <h3> Current price: {{offer.price}}</h3>
-              <hr>
-          </div>
-          <div class="card-body">
-              <div class="bids" v-for="(bid, index) in bids" :key="index">
-                  <p><span class="font-weight-bold">{{ bid.bidderName }}: </span>{{ bid.price }}</p>
-              </div>
-          </div>
+  <div class="mid-app">
+      <div>
+        <h3>Bidding for offer titled: {{offer.title}}</h3>
+        <h3> Current price: {{offer.price}}</h3>
+        <hr>
       </div>
-      <div class="card-footer">
-          <form @submit.prevent="sendMessage">
-              <div class="gorm-group pb-3">
-                  <label for="price">Your Bid:</label>
-                  <input type="number" v-model="price" class="form-control">
-              </div>
-              <button v-bind:disabled="offer.biddingStatus !== 2" type="submit" class="btn btn-success">Send</button>
-          </form>
+      <div >
+        <table class="mid-table">
+          <tr v-for="(bid, index) in bids" :key="index">
+          <td>{{ bid.bidderName }}: </td>
+          <td> {{ bid.price }} </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <form @submit.prevent="sendMessage">
+          <div>
+            <label for="price">Your Bid:</label>
+            <input type="number" v-model="price">
+          </div>
+          <button v-bind:disabled="offer.biddingStatus !== 2" type="submit" class="btn btn-success">Send</button>
+        </form>
       </div>
   </div>
 </template>
@@ -89,4 +90,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/main.css';
+@import '../sass/tables.css';
+</style>

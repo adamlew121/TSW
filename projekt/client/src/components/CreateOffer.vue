@@ -1,6 +1,6 @@
 <template>
-<div>
-  <h3>Offer Metadata</h3>
+<div class="offer-create">
+  <h3>Create offer</h3>
   <input
       type="text"
       name="title"
@@ -8,6 +8,7 @@
       placeholder="Title"
     />
     <br />
+    Enable Bidding
     <input
       type="checkbox"
       name="bidding"
@@ -21,6 +22,7 @@
       v-model="offer.price"
       placeholder="Price"
     />
+
     <br />
     <button @click="create">Post Offer</button>
 </div>
@@ -62,4 +64,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../sass/offer.css'
+</style>
