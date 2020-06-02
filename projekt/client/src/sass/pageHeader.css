@@ -35,4 +35,14 @@
   border-width: 0px;
   cursor: pointer;
 }
+
+.userData {
+  font-size: 25px;
+  padding: 5px;
+  margin-left: 80%;
+  position: absolute;
+  width: 20%;
+  height: 28px;
+  text-align: right;
+}
 /*# sourceMappingURL=pageHeader.css.map */
