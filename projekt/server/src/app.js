@@ -1,9 +1,9 @@
-const express = require('../../client/node_modules/express')
-const bodyParser = require('../../client/node_modules/body-parser')
-const cors = require('../../client/node_modules/cors')
-const morgan = require('../../client/node_modules/morgan')
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const morgan = require('morgan')
 const config = require('./config/config')
-const socketio = require("../../client/node_modules/socket.io");
+const socketio = require("socket.io");
 const fs = eval('require("fs")')
 const https = eval('require("https")')
 
@@ -18,6 +18,15 @@ require('./passport')
 const routes = require('./routes')
 
 app.use(routes)
+
+// Handle production
+
+    // Static folder
+  //  app.use(express.static(__dirname + '/../public/'));
+
+    //Handle SPA
+ //   app.get(/.*/, (req, res) => res.sendFile(__dirname + '../public/index.html'));
+
 
 app.use((_, res) => {
     // Not Found

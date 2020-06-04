@@ -1,4 +1,4 @@
-const mongodb = require('../../../client/node_modules/mongodb')
+const mongodb = require('mongodb')
 const Message = require('../models/Message')
 const User = require('../models')
 const Notification = require('../models/Notification')

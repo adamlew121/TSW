@@ -1,6 +1,6 @@
-const mongodb = require('../../../client/node_modules/mongodb')
+const mongodb = require('mongodb')
 const User = require("../models/index")
-const jwt = require('../../../client/node_modules/jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const bcrypt = require('../bcrypt/index')
 

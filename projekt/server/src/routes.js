@@ -3,7 +3,7 @@ const OffersController = require('./controllers/OffersController')
 const ChatsController = require('./controllers/ChatsController')
 const isAuthenticated = require('./policies/isAuthenticated')
 
-const express = require('../../client/node_modules/express')
+const express = require('express')
 const router = express.Router()
 
 const rejectMethod = (_req, res, _next) => {

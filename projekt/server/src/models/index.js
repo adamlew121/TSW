@@ -1,7 +1,7 @@
 const mongoose = require("../mongoose");
 const Schema = mongoose.Schema;
-const Promise = require('../../../client/node_modules/bluebird')
-const bcrypt = Promise.promisifyAll(require('../../../client/node_modules/bcrypt-nodejs'))
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
 
 const userSchema = new Schema({
@@ -19,7 +19,7 @@ const userSchema = new Schema({
 
 // bez poniższej wtyczki nie dostaniemy sensownego sygnału
 // błędu przy naruszeniu „unikatowości” nazwy użytkownika
-const uniqueValidator = require("../../../client/node_modules/mongoose-unique-validator");
+const uniqueValidator = require("mongoose-unique-validator");
 // ale z nią – już wszystko będzie jak należy
 userSchema.plugin(uniqueValidator);
 

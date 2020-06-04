@@ -1,4 +1,4 @@
-const mongodb = require('../../../client/node_modules/mongodb')
+const mongodb = require('mongodb')
 const Offer = require('../models/Offer')
 const Bid = require('../models/Bid')
 
