@@ -78,5 +78,4 @@ const rejectMethod = (_req, res, _next) => {
     router.route('/user/:userId').get(
         AuthenticationController.show)
 
-
 module.exports = router;

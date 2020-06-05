@@ -2,42 +2,43 @@ $main-bg-color: white;
 
 .main-app{
   background: $main-bg-color;
-  padding: 20px;
-  margin-top: 40px;
+  padding: 1%;
+  margin-top: 2%;
   margin-left: 10%;
   margin-right: 10%;
 
   input{
-    font-size: 20px;
+    font-size: 1.5vw;
   }
 }
 
 html {
   margin: auto 10px;
     width: auto;
-    height: 2000px;
+    height: 100%;
     background-color: $main-bg-color
 }
 
 .mid-app{
-  position: fixed;
+  position: relative;
   background: $main-bg-color;
-  font-size: 20px;
+  font-size: 1.5vw;
   margin-left: 10%;
   top: 10%;
   width: 80%;
 
+}
 
-  .main-table{
-    text-align: left;
+.main-table{
+  text-align: left;
+  width: 40%;
 
 
-    td{
+  td{
+    min-width: 4%;
+    }
 
-      padding-right: 20px;
-      }
-      tr{
-        font-size: 18px;
-      }
+  tr{
+    font-size: 1.3vw;
   }
 }

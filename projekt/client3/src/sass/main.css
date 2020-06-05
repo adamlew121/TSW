@@ -1,40 +1,41 @@
 .main-app {
   background: white;
-  padding: 20px;
-  margin-top: 40px;
+  padding: 1%;
+  margin-top: 2%;
   margin-left: 10%;
   margin-right: 10%;
 }
 
 .main-app input {
-  font-size: 20px;
+  font-size: 1.5vw;
 }
 
 html {
   margin: auto 10px;
   width: auto;
-  height: 2000px;
+  height: 100%;
   background-color: white;
 }
 
 .mid-app {
-  position: fixed;
+  position: relative;
   background: white;
-  font-size: 20px;
+  font-size: 1.5vw;
   margin-left: 10%;
   top: 10%;
   width: 80%;
 }
 
-.mid-app .main-table {
+.main-table {
   text-align: left;
+  width: 40%;
 }
 
-.mid-app .main-table td {
-  padding-right: 20px;
+.main-table td {
+  min-width: 4%;
 }
 
-.mid-app .main-table tr {
-  font-size: 18px;
+.main-table tr {
+  font-size: 1.3vw;
 }
 /*# sourceMappingURL=main.css.map */

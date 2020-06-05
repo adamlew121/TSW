@@ -3,7 +3,7 @@
       <div>
         <h3>Chat with user: {{receiver.username}}</h3>
         <hr>
-        <table class="main-table">
+        <table id="chatbox" class="main-table">
         <tr v-for="(msg, index) in messages" :key="index">
          <td> {{ formatDate(new Date(msg.createdAt)) }}, </td>
          <td>{{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}: </td>
@@ -79,6 +79,7 @@ export default {
 
         const receiver = (await AuthenticationService.show(userId)).data
         this.receiver = receiver
+        this.receiverId =receiver._id
 
         this.currentUserId = this.$store.state.user._id
         this.currentUserUserName = this.$store.state.user.username
@@ -87,9 +88,13 @@ export default {
         // console.log(this.offer)
 
         this.socket.on('MESSAGE', (data) => {
+          console.log('got message')
+          console.log('if ((' + data.receiverId + '===' + this.receiverId + '&&'  + data.senderId + '===' + this.$store.state.user._id + ') || (' + data.receiverId + '==='  + this.$store.state.user._id + '&&' + data.senderId + '===' + this.receiverId+ '))')
           if ((data.receiverId === this.receiverId && data.senderId === this.$store.state.user._id) ||
           (data.receiverId === this.$store.state.user._id && data.senderId === this.receiverId)) {
+            console.log('validated message')
             this.messages.push(data)
+            
           }
         })
       } catch (err) {

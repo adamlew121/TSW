@@ -1,17 +1,17 @@
 .offer-create {
-  position: absolute;
-  font-size: 20px;
+  position: relative;
+  font-size: 1.5vw;
   width: 50%;
   top: 10%;
   margin-left: 10%;
 }
 
 .offer-create input {
-  font-size: 20px;
+  font-size: 1.5vw;
 }
 
 .offer-create button {
-  font-size: 20px;
-  padding: 5px;
+  font-size: 1.5vw;
+  padding: 0.5%;
 }
 /*# sourceMappingURL=offer.css.map */
