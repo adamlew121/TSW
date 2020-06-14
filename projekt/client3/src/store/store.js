@@ -6,13 +6,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })],
   state: {
     token: null,
     user: null,
     isUserLoggedIn: false
   },
   mutations: {
+    login(state, user) {
+      state.user = user;
+      state.isUserLoggedIn = true
+    },
+    logout(state) {
+      sessionStorage.clear();
+      state.user = null;
+      state.isUserLoggedIn = false
+    },
     setToken (state, token) {
       state.token = token
       if (token) {

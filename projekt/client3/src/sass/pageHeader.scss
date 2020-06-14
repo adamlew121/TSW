@@ -1,48 +1,50 @@
-$main-bg-color: white;
+$main-bg-color:#152530;
+$main-font-color:#f2b8c9;
 
 .navBar {
 
-  font-size: 2vw;
-  padding: 1%;
-  margin-left: 10%;
-  margin-right: 10%;
+  font-size: 2.5vw;
+  padding-left: 5%;
   position: relative;
-  border-style: solid;
-  border-width: 1px;
-  border-left-color: $main-bg-color;
-  border-color: grey;
-  width: 80%;
+  background-color: $main-bg-color;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+  color: $main-font-color;
+  width: 100%;
   height: 3%;
-  text-align: center;
 
   .navElem{
-      color: green;
-      font-size: 2vw;
-      padding: 1%;
+      font-size: 2.5vw;
+      padding-left: 5%;
       border-color: grey;
+      color: $main-font-color;
       border-style: solid;
       border-width: 0px;
   }
 
   .navButton {
-  font-size: 2vw;
+  font-size: 2.5vw;
+  padding-left: 5%;
   background: none;
   border: none;
   padding: 0;
   position: relative;
-  color: green;
+  color: $main-font-color;
   text-decoration: underline;
   border-color: grey;
   border-style: solid;
   border-width: 0px;
+  text-align: right;
   cursor: pointer;
   }
 }
 
 .userData{
-  font-size: 2vw;
-  padding: 1%;
-  margin-left: 80%;
+  font-size: 2.5vw;
+  color: $main-font-color;
+  padding: 0.5%;
+  margin-left: 60%;
   position: absolute;
   width: 20%;
   height: 3%;

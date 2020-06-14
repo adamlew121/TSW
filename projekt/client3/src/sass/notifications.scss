@@ -1,9 +1,13 @@
+$main-bg-color:#152530;
+$main-font-color:#f2b8c9;
+
 .noteBox {
   position: relative;
   margin-top: 5%;
   margin-left: 25%;
   margin-right: 25%;
-  background: lightgrey;
+  background: $main-bg-color;
+  color: $main-font-color;
   width: 50%;
   height: 40%;
   min-height: 20%;

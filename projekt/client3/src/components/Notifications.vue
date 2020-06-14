@@ -17,6 +17,11 @@ export default {
   },
   async mounted () {
     this.notes = (await ChatsService.getNotes()).data
+    if (this.notes.length === 0) {
+      this.$router.push({
+          name: 'offers'
+        })
+    }
   }
 }
 </script>

@@ -37,8 +37,11 @@ export default {
           username: this.username,
           password: this.password
         })
-        this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setUser', response.data.user)
+        console.log(response.data)
+        this.$store.commit('login', response.data.user)
+
+        // this.$store.dispatch('setToken', response.data.token)
+        // this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
           name: 'notifications'
         })

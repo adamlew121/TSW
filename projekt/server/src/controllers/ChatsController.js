@@ -8,7 +8,7 @@ module.exports = {
         try {
             var userIds = []
             const messages1 = await Message.find({
-                receiverId: req.user._id
+                receiverId: req.user.id
             })
             console.log(messages1)
             for (var i = 0; i < messages1.length; i++) {
@@ -17,7 +17,7 @@ module.exports = {
                 }
             }
             const messages2 = await Message.find({
-                senderId: req.user._id
+                senderId: req.user.id
             })
             console.log(messages2)
             for (var i = 0; i < messages2.length; i++) {
@@ -43,11 +43,11 @@ module.exports = {
     async show (req, res) {
         try {
             const messages1 = await Message.find({
-                receiverId: req.user._id,
+                receiverId: req.user.id,
                 senderId: req.params.userId
             })
             const messages2 = await Message.find({
-                senderId: req.user._id,
+                senderId: req.user.id,
                 receiverId: req.params.userId
             })
             var messages = messages1.concat(messages2)
@@ -83,7 +83,7 @@ module.exports = {
     async getNotes (req, res) {
         try {
             const notes = await Notification.find({
-                receiverId: req.user._id,
+                receiverId: req.user.id,
                 isRead: false
             })
             // console.log(messages1)

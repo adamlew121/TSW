@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import store from '@/store/store'
+import VueCookies from 'vue-cookies'
 
 Vue.config.productionTip = false
+
+Vue.use(VueCookies)
 
 sync(store, router)
 

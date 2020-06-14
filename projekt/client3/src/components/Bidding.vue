@@ -34,7 +34,7 @@ export default {
       offer: {},
       price: '',
       bids: [],
-      socket: io('https://' + window.location.hostname + ':8081')
+      socket: null
     }
   },
   methods: {
@@ -45,13 +45,13 @@ export default {
             offerId: this.offer._id,
             price: this.price
           })
-
           this.socket.emit('SEND_BID', {
             bidderId: this.$store.state.user._id,
             bidderName: this.$store.state.user.username,
             price: this.price,
             offerId: this.offer._id
           })
+          console.log('bid made')
           const offer = (await OffersService.show(this.offer._id)).data
           this.offer = offer
           this.price = ''
@@ -68,6 +68,9 @@ export default {
       })
     } else {
       try {
+
+        this.socket = io(`wss://${window.location.host}`)
+
         const offerId = this.$store.state.route.params.offerId
 
         const bids = (await OffersService.indexBids(offerId)).data
@@ -77,8 +80,13 @@ export default {
         // console.log(this.offer)
 
         this.socket.on('BID', (data) => {
+          console.log('bid received: ')
+          console.log(data)
+          console.log('this offer: ')
+          console.log(this.offer)
           if (data.offerId === this.offer._id) {
             this.bids.push(data)
+            this.offer.price = data.price
           }
         })
       } catch (err) {

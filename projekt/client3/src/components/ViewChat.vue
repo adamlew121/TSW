@@ -35,7 +35,7 @@ export default {
       currentUserUserName: '',
       message: '',
       messages: [],
-      socket: io('https://' + window.location.hostname + ':8081')
+      socket: null
     }
   },
   methods: {
@@ -75,6 +75,8 @@ export default {
       })
     } else {
       try {
+        this.socket = io(`wss://${window.location.host}`)
+
         const userId = this.$store.state.route.params.userId
 
         const receiver = (await AuthenticationService.show(userId)).data

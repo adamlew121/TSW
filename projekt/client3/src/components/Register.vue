@@ -38,11 +38,9 @@ export default {
           username: this.username,
           password: this.password
         })
-        console.log(':0')
-        this.$store.dispatch('setToken', response.data.token)
-        console.log(':1')
-        this.$store.dispatch('setUser', response.data.user)
-        console.log(':2')
+        console.log(response)
+        // this.$store.dispatch('setToken', response.data.token)
+        // this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
           name: 'offers'
         })

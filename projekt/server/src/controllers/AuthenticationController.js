@@ -3,13 +3,14 @@ const User = require("../models/index")
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const bcrypt = require('../bcrypt/index')
+const passport = require('passport');
 
-function jwtSignUser (user) {
-    const ONE_WEEK = 60 * 60 * 24 * 7
-    return jwt.sign(user, 'secret', {
-        expiresIn: ONE_WEEK
-    })
-}
+// function jwtSignUser (user) {
+//     const ONE_WEEK = 60 * 60 * 24 * 7
+//     return jwt.sign(user, 'secret', {
+//         expiresIn: ONE_WEEK
+//     })
+// }
 
 module.exports = {
     async register (req, res) {
@@ -22,7 +23,7 @@ module.exports = {
         const userJson = user.toJSON()
         res.send({
                 user: userJson,
-                token: jwtSignUser(userJson)
+                // token: jwtSignUser(userJson)
             })
         } catch (err) {
             res.status(400).send({
@@ -30,39 +31,37 @@ module.exports = {
             })
         }
     },
-    async login (req, res)  {
+    async login (req, res, next) {
         try {
-            const {username, password} = req.body
-            const user = await User.findOne({
-                    username: username
+            passport.authenticate("local", (err, user) => {
+                console.log('ee4')
+                if (err || !user) {
+                    console.log('222');
+                    res.status(401).json({
+                        message: "Incorrect username or password",
+                    })
+                } else {
+                    console.log(user)
+                    req.logIn(user, (err) => {
+                        console.log('d1')
+                        if (err) {
+                            console.log('d2')
+                            return next(err);
+                        }
+                        console.log('d3')
+                        console.log(req.session)
+                        res.status(200).json({
+                            user: user
+                        })
+                    })
+                }
+            })(req, res, next);
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({
+                error: 'An error has occured trying to login.'
             })
-            if (!user) {
-                res.status(403).send({
-                    error: 'The login information was incorrect1'
-                })
-            }
-            console.log('jest user');
-            console.log(user);
-            const isPasswordValid = await bcrypt.compare(password, user.password)
-            if (!isPasswordValid) {
-                res.status(403).send({
-                    error: 'The login information was incorrect2'
-                })
-            }
-            console.log('password jest validny');
-            const userJson = user.toJSON()
-            console.log(userJson)
-            console.log(config.authentication.jwSecret)
-            res.send({
-                user: userJson,
-                token: jwtSignUser(userJson)
-            })
-            } catch (err) {
-                console.log(err);
-                res.status(500).send({
-                    error: 'An error has occured trying to login.'
-                })
-            }
+        }
     },
     async show (req, res)  {
       try {

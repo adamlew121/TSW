@@ -6,6 +6,7 @@ const Bid = require('../models/Bid')
 module.exports = {
     async index (req, res) {
         try {
+            console.log('offers contorller index')
             const offers = await Offer.find({})
             res.send(offers)
         } catch (err) {
@@ -17,11 +18,11 @@ module.exports = {
     async history (req, res) {
         try {
             var offers1 = await Offer.find({
-                author: req.user._id,
+                author: req.user.id,
                 closed: true
             })
             var offers2 = await Offer.find({
-                buyer: req.user._id,
+                buyer: req.user.id,
                 closed: true
             })
             var offers = offers1.concat(offers2)
@@ -35,7 +36,7 @@ module.exports = {
     async historyBidding (req, res) {
         try {
             var bids = await Bid.find({
-                bidderId: req.user._id
+                bidderId: req.user.id
             })
             console.log('1')
             var offerIds = []
@@ -109,7 +110,7 @@ module.exports = {
         try {
             req.body.closed = true
             console.log(req.user)
-            req.body.buyer = req.user._id
+            req.body.buyer = req.user.id
             const offer = await Offer.update({
                 _id: new mongodb.ObjectID(req.params.offerId)
             }, req.body)
@@ -155,18 +156,32 @@ module.exports = {
             const offer = await Offer.findOne({
                 _id: req.params.offerId
             })
-            offer.price = req.body.price
-            offer.buyer = req.user._id
-            await Offer.update({
-                _id: new mongodb.ObjectID(req.params.offerId)
-            }, offer)
-            const bid = await Bid.create({
-                bidderId: req.user._id,
-                bidderName: req.user.username,
-                offerId: req.params.offerId,
-                price: req.body.price
-            })
-            res.send(bid)
+            console.log("v1")
+            if (offer.price >= req.body.price) {
+                res.status(400).send({
+                    error: 'Actual price is higher than bidded'
+                })
+            } else {
+                offer.price = req.body.price
+                offer.buyer = req.user.id
+                console.log("v2")
+                await Offer.update({
+                    _id: new mongodb.ObjectID(req.params.offerId)
+                }, offer)
+                console.log("v3")
+                console.log('bidderId: ' + req.user.id)
+                console.log('bidderName: ' + req.user.username)
+                console.log('offerId: ' + req.params.offerId)
+                console.log('price: ' + req.body.price)
+                const bid = await Bid.create({
+                    bidderId: req.user.id,
+                    bidderName: req.user.username,
+                    offerId: req.params.offerId,
+                    price: req.body.price
+                })
+                console.log("v4")
+                res.send(bid)
+            }
         } catch (err) {
             // console.log(err)
             res.status(500).send({

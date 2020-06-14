@@ -2,6 +2,7 @@
   border-style: solid;
   border-width: 0.5%;
   border-color: darkgreen;
+  color: #f2b8c9;
   font-size: 1.5vw;
   position: relative;
   margin-left: 25%;
@@ -40,6 +41,7 @@
   border-style: solid;
   border-width: 1%;
   border-color: darkgreen;
+  color: #f2b8c9;
   font-size: 1.5vw;
   position: relative;
   margin-bottom: 1%;
@@ -52,6 +54,7 @@
 .pagination {
   font-size: 1.5vw;
   position: relative;
+  color: #f2b8c9;
   margin-top: 2%;
   margin-left: 40%;
   width: 20%;

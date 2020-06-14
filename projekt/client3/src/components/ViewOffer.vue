@@ -59,6 +59,7 @@
     </div>
 
     <div v-if="canEnterBidding">
+      <bidding :offerId="offer._id" />
       <button @click="navigateTo({
         name: 'offer-bidding',
         params: {
@@ -73,9 +74,13 @@
 </template>
 
 <script>
+import Bidding from '@/components/Bidding'
 import OffersService from '@/services/OffersService'
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
+  components: {
+    Bidding
+  },
   data () {
     return {
       offer: {},
@@ -161,6 +166,8 @@ export default {
         console.log('cant buy')
         this.canBuy = false
       }
+      console.log('can edit: ' + this.canEdit)
+      console.log('can buy: ' + this.canBuy)
     }
   }
 }

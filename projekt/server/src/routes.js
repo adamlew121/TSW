@@ -1,7 +1,8 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const OffersController = require('./controllers/OffersController')
 const ChatsController = require('./controllers/ChatsController')
-const isAuthenticated = require('./policies/isAuthenticated')
+// const isAuthenticated = require('./policies/isAuthenticated')
+const passport = require('passport');
 
 const express = require('express')
 const router = express.Router()
@@ -11,68 +12,95 @@ const rejectMethod = (_req, res, _next) => {
     res.sendStatus(405);
 };
 
+const authMiddleware = (req, res, next) => {
+    console.log('auth?: ' + req.isAuthenticated())
+    console.log(req.user)
+    if (!req.isAuthenticated()) {
+        res.status(401).json({
+            error: "Unauthorized"
+        });
+    } else {
+        return next();
+    }
+}
+
+
     router.route('/register').post(
         AuthenticationController.register)
 
     router.route('/login').post(
         AuthenticationController.login)
 
+
     router.route('/offers').get(
         OffersController.index)
 
     router.route('/history').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.history)
 
     router.route('/historyBidding').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.historyBidding)
 
     router.route('/offers').post(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.post)
 
     router.route('/offers/:offerId').get(
         OffersController.show)
 
     router.route('/offers/:offerId').put(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.put)
 
     router.route('/offers/:offerId/buy').put(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.buy)
 
     router.route('/offers/:offerId/start').put(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.start)
 
     router.route('/offers/:offerId/finish').put(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.finish)
 
     router.route('/offers/:offerId/bid').put(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.bid)
 
     router.route('/offers/:offerId/bids').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         OffersController.indexBids)
 
     router.route('/chats').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         ChatsController.index)
 
     router.route('/chats').post(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         ChatsController.post)
 
     router.route('/notes').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         ChatsController.getNotes)
 
     router.route('/chats/:userId').get(
-        isAuthenticated,
+        authMiddleware,
+        // isAuthenticated,
         ChatsController.show)
 
     router.route('/user/:userId').get(
