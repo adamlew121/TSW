@@ -42,7 +42,7 @@ $main-font-color:#f2b8c9;
   display: grid;
   padding: 0.5%;
   grid-template-columns: repeat( auto-fit, minmax(250px, 400px) );
-  grid-template-rows: repeat( auto-fit, minmax(150px, 240px) );
+  grid-template-rows: repeat( auto-fit, minmax(150px, 160px) );
   gap: 1em;
   
 
@@ -51,6 +51,11 @@ $main-font-color:#f2b8c9;
       color: white;
       background-color: #293538;
       font-size: xx-large;
+      cursor: pointer;
+  }
+
+  .cstGridField:hover{
+    background-color: #6c8288;
   }
 }
 

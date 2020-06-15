@@ -42,8 +42,8 @@
   padding: 0.5%;
   -ms-grid-columns: (minmax(250px, 400px))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
-  -ms-grid-rows: (minmax(150px, 240px))[auto-fit];
-      grid-template-rows: repeat(auto-fit, minmax(150px, 240px));
+  -ms-grid-rows: (minmax(150px, 160px))[auto-fit];
+      grid-template-rows: repeat(auto-fit, minmax(150px, 160px));
   gap: 1em;
 }
 
@@ -52,6 +52,11 @@
   color: white;
   background-color: #293538;
   font-size: xx-large;
+  cursor: pointer;
+}
+
+.cstGrid .cstGridField:hover {
+  background-color: #6c8288;
 }
 
 .createBtn {
