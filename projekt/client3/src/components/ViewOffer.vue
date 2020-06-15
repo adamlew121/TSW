@@ -1,17 +1,23 @@
 <template>
 <div class="offer-create">
-  <h1>Offer Details</h1>
+  Offer Details
   <hr/>
   <p>
-    Title:   {{offer.title}}
+    {{offer.title}}
   </p>
   <p>
-    Price:   {{offer.price}}
+    {{canEnterBidding ? '' : offer.price + ' USD'}}
   </p>
   <p>
-   Is bidding enabled:   {{offer.bidding}}
+  Created by {{author.username}}
   </p>
-    Creator: {{author.username}}
+  <p>
+   {{canBuy ? 'Buy now' : ''}}
+   {{canEnterBidding ? 'Bidding in progress' : ''}}
+   {{canStartBidding ? 'Click button to start bidding' : ''}}
+   {{canFinishBidding ? 'Click button to finish bidding' : ''}}
+  </p>
+    
     <hr/>
       <div v-if="!isAuthor(offer) && isLoggedIn()">
       <button @click="navigateTo({
@@ -60,14 +66,6 @@
 
     <div v-if="canEnterBidding">
       <bidding :offerId="offer._id" />
-      <button @click="navigateTo({
-        name: 'offer-bidding',
-        params: {
-          offerId: offer._id
-        }
-      })">
-      Enter Bidding
-      </button>
     </div>
 
 </div>

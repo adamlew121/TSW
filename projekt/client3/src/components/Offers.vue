@@ -5,34 +5,26 @@
     @click="navigateTo({
         name: 'offers-create'
       })"
-    class="createBtn">Create Offer
+    class="createButton">Create Offer
     </button>
   </div>
-  <table class="cstTable">
-    <tr>
-      <th>Status</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Option</th>
-      <th>Details</th>
-    </tr>
-  <tr v-for="(offer) in visibleOffers" :key="offer.id">
-    <td> {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} </td>
-    <td>{{offer.title}}</td>
-    <td>{{offer.price}}</td>
-    <td>{{getOption(offer)}}</td>
-    <td><button
-    @click="navigateTo({
-      name: 'offer',
-      params: {
-        offerId: offer._id
-        }
-      })">
-      View Offer
-    </button>
-    </td>
-  </tr>
-  </table>
+  <div class="cstGrid" >
+    <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id">
+      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
+      {{offer.title}} <br/>
+      {{offer.price}} <br/>
+      {{getOption(offer)}} <br/>
+      <button
+      @click="navigateTo({
+        name: 'offer',
+        params: {
+          offerId: offer._id
+          }
+        })">
+        View Offer
+      </button>
+    </div>
+  </div>
   <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
@@ -49,7 +41,7 @@ export default {
       offers: {},
       visibleOffers: {},
       currentPage: 0,
-      pageSize: 5
+      pageSize: 9
     }
   },
   methods: {

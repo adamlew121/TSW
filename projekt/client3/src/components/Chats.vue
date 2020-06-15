@@ -1,14 +1,10 @@
 <template>
 <div class="main-app">
 
-  <table class="cstTable">
-    <tr>
-      <th>Username</th>
-      <th>Details</th>
-    </tr>
-  <tr v-for="user in visibleUsers" :key="user.id">
-    <td>{{user.username}}</td>
-    <td><button
+  <div class="cstGrid" >
+    <div class="cstGridField" v-for="user in visibleUsers" :key="user.id">
+      {{user.username}} <br/>
+      <button class="cstButton"
     @click="navigateTo({
       name: 'chat',
       params: {
@@ -17,9 +13,9 @@
       })">
       View Chat
       </button>
-    </td>
-  </tr>
-  </table>
+    </div>
+  </div>
+
   <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}

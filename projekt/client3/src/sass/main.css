@@ -2,31 +2,66 @@
   background: #152530;
   color: #f2b8c9;
   padding: 1%;
-  margin-top: 2%;
+  margin: 2%;
+  text-align: center;
 }
 
-.main-app input {
+.main-app .cstInput {
   font-size: 1.5vw;
+}
+
+.main-app .cstButton {
+  font-size: 1.5vw;
+}
+
+.main-app .pagination {
+  margin-top: 5%;
+  font-size: 1.5vw;
+}
+
+.main-app .createButton {
+  background: #293538;
+  font-size: 1.5vw;
+  color: #f2b8c9;
+  border: none;
+  text-decoration: none;
+  text-align: right;
+  cursor: pointer;
 }
 
 html {
   width: auto;
   height: 100%;
   background-color: #152530;
+  color: #f2b8c9;
 }
 
 .mid-app {
+  margin-top: 5%;
+  color: #f2b8c9;
   position: relative;
   background: #152530;
-  font-size: 1.5vw;
+  font-size: xx-large;
+  text-align: center;
   margin-left: 10%;
   top: 10%;
   width: 80%;
 }
 
+.mid-app .cstInput {
+  font-size: 1.5vw;
+}
+
+.mid-app .cstButton {
+  font-size: 1.5vw;
+}
+
 .main-table {
-  text-align: left;
+  margin-top: 2%;
+  text-align: center;
   width: 40%;
+  color: white;
+  font-size: xx-large;
 }
 
 .main-table td {

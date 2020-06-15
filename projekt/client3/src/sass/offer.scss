@@ -2,12 +2,13 @@ $main-bg-color:#152530;
 $main-font-color:#f2b8c9;
 
 .offer-create{
+  margin-top: 2%;
   position: relative;
-  font-size: 1.5vw;
+  font-size: xx-large;
+  text-align: center;
   color: $main-font-color;
-  width: 50%;
+  width: 100%;
   top: 10%;
-  margin-left: 10%;
 
   input{
     font-size: 1.5vw;

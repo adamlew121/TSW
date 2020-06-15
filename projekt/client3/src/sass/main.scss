@@ -5,32 +5,67 @@ $main-font-color:#f2b8c9;
   background: $main-bg-color;
   color: $main-font-color;
   padding: 1%;
-  margin-top: 2%;
+  margin: 2%;
+  text-align: center;
 
-  input{
+  .cstInput{
     font-size: 1.5vw;
+  }
+
+  .cstButton{
+    font-size: 1.5vw;
+  }
+
+  .pagination{
+    margin-top: 5%;
+    font-size: 1.5vw;
+  }
+
+  .createButton{
+    background: #293538;
+    font-size: 1.5vw;
+    color: $main-font-color;
+    border: none;
+    text-decoration: none;
+    text-align: right;
+    cursor: pointer;
   }
 }
 
 html {
     width: auto;
     height: 100%;
-    background-color: $main-bg-color
+    background-color: $main-bg-color;
+    color: $main-font-color;
 }
 
 .mid-app{
+  margin-top: 5%;
+  color: $main-font-color;
   position: relative;
   background: $main-bg-color;
-  font-size: 1.5vw;
+  font-size: xx-large;
+  text-align: center;
   margin-left: 10%;
   top: 10%;
   width: 80%;
 
+  .cstInput{
+    font-size: 1.5vw;
+  }
+
+  .cstButton{
+    font-size: 1.5vw;
+  }
+
 }
 
 .main-table{
-  text-align: left;
+  margin-top: 2%;
+  text-align: center;
   width: 40%;
+  color: white;
+  font-size: xx-large;
 
 
   td{

@@ -1,42 +1,34 @@
 <template>
 <div class="main-app">
 
-  <table class="cstTable">
-    <tr>
-      <th>Status</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Option</th>
-      <th>Details</th>
-      <th>Make new bid</th>
-    </tr>
-  <tr v-for="(offer) in visibleOffers" :key="offer.id">
-    <td> {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} </td>
-    <td>{{offer.title}}</td>
-    <td>{{offer.price}}</td>
-    <td>{{getOption(offer)}}</td>
-    <td><button
-    @click="navigateTo({
-      name: 'offer',
-      params: {
-        offerId: offer._id
-        }
-      })">
-      View Offer
-    </button>
-    </td>
-    <td><input
+  <div class="cstGrid" >
+    <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id">
+      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
+      {{offer.title}} <br/>
+      {{offer.price}} <br/>
+      {{getOption(offer)}} <br/>
+      <button class="cstButton"
+      @click="navigateTo({
+        name: 'offer',
+        params: {
+          offerId: offer._id
+          }
+        })">
+        View Offer
+      </button>
+      <br />
+      <input class="cstInput"
       type="number"
       name="price"
       v-model="price"
       placeholder="price"
     />
-    <button
-    @click="dynamicBid(offer, index)">
+    <button class="cstButton"
+    @click="dynamicBid(offer)">
       Bid
-      </button> </td>
-  </tr>
-  </table>
+      </button>
+    </div>
+  </div>
   <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
@@ -56,7 +48,7 @@ export default {
       price: 0,
       currentPage: 0,
       pageSize: 5,
-      socket: io('https://localhost:8081')
+      socket: io('wss://localhost:8081')
     }
   },
   methods: {
@@ -99,7 +91,7 @@ export default {
         return 'Bidding in progress'
       }
     },
-    async dynamicBid (offer, index) {
+    async dynamicBid (offer) {
       if (this.price > offer.price) {
         try {
           await OffersService.bid({
@@ -113,7 +105,8 @@ export default {
             price: this.price,
             offerId: offer._id
           })
-          this.offers[index].price = this.price
+          this.offers = (await OffersService.historyBidding()).data
+          this.updateVisibleOffers()
         } catch (err) {
           console.log(err)
         }

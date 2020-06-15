@@ -36,6 +36,24 @@
   position: relative;
 }
 
+.cstGrid {
+  display: -ms-grid;
+  display: grid;
+  padding: 0.5%;
+  -ms-grid-columns: (minmax(250px, 400px))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+  -ms-grid-rows: (minmax(150px, 240px))[auto-fit];
+      grid-template-rows: repeat(auto-fit, minmax(150px, 240px));
+  gap: 1em;
+}
+
+.cstGrid .cstGridField {
+  text-align: center;
+  color: white;
+  background-color: #293538;
+  font-size: xx-large;
+}
+
 .createBtn {
   padding: 1%;
   border-style: solid;

@@ -7,7 +7,7 @@
       <router-link v-if="$store.state.isUserLoggedIn" class="navElem" to="/history">History</router-link>
       <router-link v-if="$store.state.isUserLoggedIn" class="navElem" to="/chats">Chats</router-link>
       <router-link class="navElem" to="/offers">Offers</router-link>
-      <button v-if="$store.state.isUserLoggedIn" class="navButton" @click="logout">Log Out</button>
+      <button v-if="$store.state.isUserLoggedIn" class="navElem" @click="logout">Log Out</button>
     </nav>
     <div class="userData" v-if="$store.state.isUserLoggedIn">
       Zalogowany: {{$store.state.user.username}}

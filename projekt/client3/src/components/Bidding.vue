@@ -1,8 +1,7 @@
 <template>
   <div class="mid-app">
       <div>
-        <h3>Bidding for offer titled: {{offer.title}}</h3>
-        <h3> Current price: {{offer.price}}</h3>
+        <h3> Current price: {{offer.price}} USD</h3>
         <hr>
       </div>
       <div >

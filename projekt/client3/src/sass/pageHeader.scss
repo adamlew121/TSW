@@ -4,11 +4,12 @@ $main-font-color:#f2b8c9;
 .navBar {
 
   font-size: 2.5vw;
-  padding-left: 5%;
+  padding-right: 15%;
+  padding-bottom: 2%;
   position: relative;
   background-color: $main-bg-color;
   border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom-width: 0.5%;
   border-bottom-color: black;
   color: $main-font-color;
   width: 100%;
@@ -16,13 +17,16 @@ $main-font-color:#f2b8c9;
 
   .navElem{
       font-size: 2.5vw;
-      padding-left: 5%;
+      margin-left: 5%;
+      padding: 0.5%;
       border-color: grey;
+      background-color: #293538;
       color: $main-font-color;
+      text-decoration: none;
       border-style: solid;
       border-width: 0px;
   }
-
+  
   .navButton {
   font-size: 2.5vw;
   padding-left: 5%;
@@ -31,22 +35,28 @@ $main-font-color:#f2b8c9;
   padding: 0;
   position: relative;
   color: $main-font-color;
-  text-decoration: underline;
+  text-decoration: none;
   border-color: grey;
   border-style: solid;
   border-width: 0px;
   text-align: right;
   cursor: pointer;
   }
+
+  .userData{
+    font-size: 2.5vw;
+    padding: 0.5%;
+    padding-left: 5%;
+    padding-top: 2%;
+    color: $main-font-color;
+    margin-left: 50%;
+    margin-right: 30%;
+    position: absolute;
+    width: 20%;
+    height: 5%;
+    text-align: right;
+  }
+  
 }
 
-.userData{
-  font-size: 2.5vw;
-  color: $main-font-color;
-  padding: 0.5%;
-  margin-left: 60%;
-  position: absolute;
-  width: 20%;
-  height: 3%;
-  text-align: right;
-}
+

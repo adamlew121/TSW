@@ -1,10 +1,11 @@
 .offer-create {
+  margin-top: 2%;
   position: relative;
-  font-size: 1.5vw;
+  font-size: xx-large;
+  text-align: center;
   color: #f2b8c9;
-  width: 50%;
+  width: 100%;
   top: 10%;
-  margin-left: 10%;
 }
 
 .offer-create input {

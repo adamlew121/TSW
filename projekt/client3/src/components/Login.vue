@@ -1,14 +1,14 @@
 <template>
   <div class="main-app">
     <h1>Login</h1>
-    <input
+    <input class="cstInput"
       type="text"
       name="username"
       v-model="username"
       placeholder="username"
     />
     <br />
-    <input
+    <input class="cstInput"
       type="password"
       name="password"
       v-model="password"
@@ -16,7 +16,7 @@
     />
     <br />
     <div v-html="error"></div>
-    <button @click="login">Login</button>
+    <button class="cstButton" @click="login">Login</button>
   </div>
 </template>
 

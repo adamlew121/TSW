@@ -17,7 +17,7 @@
           <div>
             <input type="text" v-model="message">
           </div>
-          <button type="submit">Send</button>
+          <button class="cstInput" type="submit">Send</button>
         </form>
       </div>
   </div>

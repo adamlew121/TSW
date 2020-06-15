@@ -1,6 +1,7 @@
 <template>
 <div class="offer-create">
-  <h3>Edit offer</h3>
+  Edit offer
+  <br />
   <input
       type="text"
       name="title"
@@ -8,7 +9,7 @@
       placeholder="Title"
     />
     <br />
-    Enable Bidding
+    Allow bidding
     <input
       type="checkbox"
       name="bidding"

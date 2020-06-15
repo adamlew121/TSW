@@ -1,15 +1,15 @@
 <template>
   <div class="main-app">
     <h1>Register</h1>
-
-    <input
+    <br />
+    <input class="cstInput"
       type="text"
       name="username"
       v-model="username"
       placeholder="username"
     />
     <br />
-    <input
+    <input class="cstInput"
       type="password"
       name="password"
       v-model="password"
@@ -17,7 +17,7 @@
     />
     <br />
     <div v-html="error"></div>
-    <button @click="register">Register</button>
+    <button class="cstButton" @click="register">Register</button>
   </div>
 </template>
 
