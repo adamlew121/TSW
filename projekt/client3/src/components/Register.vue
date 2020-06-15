@@ -33,19 +33,21 @@ export default {
   },
   methods: {
     async register () {
-      try {
-        const response = await AuthenticationService.register({
-          username: this.username,
-          password: this.password
-        })
-        console.log(response)
-        // this.$store.dispatch('setToken', response.data.token)
-        // this.$store.dispatch('setUser', response.data.user)
-        this.$router.push({
-          name: 'offers'
-        })
-      } catch (err) {
-        this.error = err.response.data.error
+      if (this.username.length > 0 && this.password.length > 0 ) {
+        try {
+          const response = await AuthenticationService.register({
+            username: this.username,
+            password: this.password
+          })
+          console.log(response)
+          // this.$store.dispatch('setToken', response.data.token)
+          // this.$store.dispatch('setUser', response.data.user)
+          this.$router.push({
+            name: 'offers'
+          })
+        } catch (err) {
+          this.error = err.response.data.error
+        }
       }
     }
   },
