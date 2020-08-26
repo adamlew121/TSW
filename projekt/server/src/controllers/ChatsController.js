@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+// const mongodb = require('mongodb');
 const Message = require('../models/Message');
 const User = require('../models');
 const Notification = require('../models/Notification');
@@ -23,13 +23,7 @@ module.exports = {
           userIds.push(messages2[i].receiverId);
         }
       }
-      const users = [];
-      for (let i = 0; i < userIds.length; i += 1) {
-        const user = User.findOne({
-          _id: new mongodb.ObjectID(userIds[i]),
-        });
-        users.push(user);
-      }
+      const users = await User.find({ _id: { $in: userIds } });
       res.send(users);
     } catch (err) {
       res.status(500).send({
@@ -78,12 +72,10 @@ module.exports = {
         receiverId: req.user.id,
         isRead: false,
       });
-      for (let i = 0; i < notes.length; i += 1) {
-        Notification.update({
-          // eslint-disable-next-line no-underscore-dangle
-          _id: new mongodb.ObjectID(notes[i]._id),
-        }, { isRead: true });
-      }
+      await Notification.update({
+        receiverId: req.user.id,
+        isRead: false,
+      }, { isRead: true }, { multi: true });
       res.send(notes);
     } catch (err) {
       res.status(500).send({

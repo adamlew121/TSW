@@ -42,16 +42,7 @@ module.exports = {
           offerIds.push(bids[i].offerId);
         }
       }
-      const offers = [];
-      for (let i = 0; i < offerIds.length; i += 1) {
-        const offer = Offer.findOne({
-          _id: new mongodb.ObjectID(offerIds[i]),
-          closed: false,
-        });
-        if (offer !== null) {
-          offers.push(offer);
-        }
-      }
+      const offers = await Offer.find({ _id: { $in: offerIds }, closed: false });
       res.send(offers);
     } catch (err) {
       res.status(500).send({
