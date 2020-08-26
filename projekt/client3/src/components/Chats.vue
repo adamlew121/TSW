@@ -2,17 +2,13 @@
 <div class="main-app">
 
   <div class="cstGrid" >
-    <div class="cstGridField" v-for="user in visibleUsers" :key="user.id">
-      {{user.username}} <br/>
-      <button class="cstButton"
-    @click="navigateTo({
+    <div class="cstGridField" v-for="user in visibleUsers" :key="user.id" @click="navigateTo({
       name: 'chat',
       params: {
         userId: user._id
         }
       })">
-      View Chat
-      </button>
+      {{user.username}} <br/>
     </div>
   </div>
 

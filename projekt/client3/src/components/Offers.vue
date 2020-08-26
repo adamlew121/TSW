@@ -8,7 +8,7 @@
     class="createButton">Create Offer
     </button>
   </div>
-  <div class="cstGrid" >
+  <div class="cstGrid"> 
     <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id" @click="navigateTo({
         name: 'offer',
         params: {
@@ -17,15 +17,16 @@
         })">
       {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
       {{offer.title}} <br/>
-      {{offer.price}} <br/>
+      {{offer.price}} USD <br/>
       {{getOption(offer)}} <br/>
+  </div>
   </div>
   <div v-if="totalPages() > 0" class="pagination">
     <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
     <span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt; </span>
   </div>
-</div>
+
 </template>
 
 <script>

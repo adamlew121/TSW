@@ -68,7 +68,10 @@ export default {
     } else {
       try {
 
-        this.socket = io(`wss://${window.location.host}`)
+        this.socket = io(`wss://${window.location.host}`, {
+          transports: ['websocket'],
+          upgrade: false
+        })
 
         const offerId = this.$store.state.route.params.offerId
 

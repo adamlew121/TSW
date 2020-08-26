@@ -2,21 +2,17 @@
 <div class="main-app">
 
   <div class="cstGrid" >
-    <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id">
-      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
-      {{offer.title}} <br/>
-      {{offer.price}} <br/>
-      {{getOption(offer)}} <br/>
-      <button class="cstButton"
-      @click="navigateTo({
+    <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id" @click="navigateTo({
         name: 'offer',
         params: {
           offerId: offer._id
           }
         })">
-        View Offer
-      </button>
-      <br />
+      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
+      {{offer.title}} <br/>
+      {{offer.price}} USD <br/>
+      {{getOption(offer)}} <br/>
+      
       <input class="cstInput"
       type="number"
       name="price"
@@ -48,7 +44,10 @@ export default {
       price: 0,
       currentPage: 0,
       pageSize: 5,
-      socket: io('wss://localhost:8081')
+      socket: io(`wss://${window.location.host}`, {
+          transports: ['websocket'],
+          upgrade: false
+        })
     }
   },
   methods: {

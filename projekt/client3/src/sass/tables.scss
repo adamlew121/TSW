@@ -39,11 +39,12 @@ $main-font-color:#f2b8c9;
 }
 
 .cstGrid {
+  margin-top: 2%;
   display: grid;
   padding: 0.5%;
   grid-template-columns: repeat( auto-fit, minmax(250px, 400px) );
   grid-template-rows: repeat( auto-fit, minmax(150px, 160px) );
-  gap: 1em;
+  gap: 3em;
   
 
   .cstGridField {
@@ -75,12 +76,11 @@ $main-font-color:#f2b8c9;
 }
 
 .pagination {
-  font-size: 1.5vw;
+  font-size: xx-large;
   position: relative;
   color: $main-font-color;
   margin-top: 2%;
-  margin-left: 40%;
-  width: 20%;
+  width: 100%;
   top: 60%;
   text-align: center;
 }

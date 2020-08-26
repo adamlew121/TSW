@@ -16,7 +16,7 @@
 
 .main-app .pagination {
   margin-top: 5%;
-  font-size: 1.5vw;
+  font-size: xx-large;
 }
 
 .main-app .createButton {
@@ -37,7 +37,7 @@ html {
 }
 
 .mid-app {
-  margin-top: 5%;
+  margin-top: 7%;
   color: #f2b8c9;
   position: relative;
   background: #152530;

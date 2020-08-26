@@ -1,16 +1,13 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
+
 const salt = bcrypt.genSaltSync(10);
 
 // UWAGA! poniżej wykorzystujemy metody synchroniczne bcrypt
-const hash = (pswd) => {
-    return bcrypt.hashSync(pswd, salt);
-};
+const hash = (pswd) => bcrypt.hashSync(pswd, salt);
 
-const compare = (pswd, hash) => {
-    return bcrypt.compareSync(pswd, hash);
-};
+const compare = (pswd, phash) => bcrypt.compareSync(pswd, phash);
 
 module.exports = {
-    hash,
-    compare
+  hash,
+  compare,
 };
