@@ -1,85 +1,85 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Register from '@/components/Register'
-import Login from '@/components/Login'
-import Offers from '@/components/Offers'
-import CreateOffer from '@/components/CreateOffer'
-import ViewOffer from '@/components/ViewOffer'
-import EditOffer from '@/components/EditOffer'
-import History from '@/components/History'
-import Bidding from '@/components/Bidding'
-import HistoryBidding from '@/components/HistoryBidding'
-import Chats from '@/components/Chats'
-import ViewChat from '@/components/ViewChat'
-import Notifications from '@/components/Notifications'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Register from '@/components/Register.vue';
+import Login from '@/components/Login.vue';
+import Offers from '@/components/Offers.vue';
+import CreateOffer from '@/components/CreateOffer.vue';
+import ViewOffer from '@/components/ViewOffer.vue';
+import EditOffer from '@/components/EditOffer.vue';
+import History from '@/components/History.vue';
+import Bidding from '@/components/Bidding.vue';
+import HistoryBidding from '@/components/HistoryBidding.vue';
+import Chats from '@/components/Chats.vue';
+import ViewChat from '@/components/ViewChat.vue';
+import Notifications from '@/components/Notifications.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path: '/offers',
       name: 'offers',
-      component: Offers
+      component: Offers,
     },
     {
       path: '/offers/create',
       name: 'offers-create',
-      component: CreateOffer
+      component: CreateOffer,
     },
     {
       path: '/offers/:offerId',
       name: 'offer',
-      component: ViewOffer
+      component: ViewOffer,
     },
     {
       path: '/offers/:offerId/edit',
       name: 'offer-edit',
-      component: EditOffer
+      component: EditOffer,
     },
     {
       path: '/offers/:offerId/bidding',
       name: 'offer-bidding',
-      component: Bidding
+      component: Bidding,
     },
     {
       path: '/history',
       name: 'history',
-      component: History
+      component: History,
     },
     {
       path: '/historyBidding',
       name: 'history-bidding',
-      component: HistoryBidding
+      component: HistoryBidding,
     },
     {
       path: '/chats',
       name: 'chats',
-      component: Chats
+      component: Chats,
     },
     {
       path: '/chats/:userId',
       name: 'chat',
-      component: ViewChat
+      component: ViewChat,
     },
     {
       path: '/notifications',
       name: 'notifications',
-      component: Notifications
+      component: Notifications,
     },
     {
       path: '*',
-      redirect: 'offers'
-    }
-  ]
-})
+      redirect: 'offers',
+    },
+  ],
+});

@@ -1,6 +1,5 @@
 <template>
 <div class="main-app">
-
   <div class="cstGrid" >
     <div class="cstGridField" v-for="user in visibleUsers" :key="user.id" @click="navigateTo({
       name: 'chat',
@@ -13,60 +12,66 @@
   </div>
 
   <div v-if="totalPages() > 0" class="pagination">
-    <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
+    <span v-if="showPreviousLink()"
+      class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt;
+    </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
-    <span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt; </span>
+    <span v-if="showNextLink()"
+      class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt;
+    </span>
   </div>
 
 </div>
 </template>
 
 <script>
-import ChatsService from '@/services/ChatsService'
+import ChatsService from '@/services/ChatsService';
+
 export default {
-  data () {
+  data() {
     return {
       users: {},
       visibleUsers: {},
       currentPage: 0,
-      pageSize: 5
-    }
+      pageSize: 5,
+    };
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    navigateTo(route) {
+      this.$router.push(route);
     },
-    updateVisibleUsers () {
-      this.visibleUsers = this.users.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize)
+    updateVisibleUsers() {
+      this.visibleUsers = this.users.slice(this.currentPage * this.pageSize,
+        (this.currentPage * this.pageSize) + this.pageSize);
       if (this.visibleUsers.length === 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
+        this.updatePage(this.currentPage - 1);
       }
     },
-    updatePage (pageNumber) {
-      this.currentPage = pageNumber
-      this.updateVisibleUsers()
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleUsers();
     },
-    totalPages () {
-      return Math.ceil(this.users.length / this.pageSize)
+    totalPages() {
+      return Math.ceil(this.users.length / this.pageSize);
     },
-    showPreviousLink () {
-      return this.currentPage !== 0
+    showPreviousLink() {
+      return this.currentPage !== 0;
     },
-    showNextLink () {
-      return this.currentPage !== (this.totalPages() - 1)
-    }
+    showNextLink() {
+      return this.currentPage !== (this.totalPages() - 1);
+    },
   },
-  async mounted () {
+  async mounted() {
     if (!this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'offers'
-      })
+        name: 'offers',
+      });
     } else {
-      this.users = (await ChatsService.index()).data
-      this.updateVisibleUsers()
+      this.users = (await ChatsService.index()).data;
+      this.updateVisibleUsers();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

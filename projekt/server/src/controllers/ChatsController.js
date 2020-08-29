@@ -55,7 +55,7 @@ module.exports = {
     try {
       const message = await Message.create(req.body);
       await Notification.create({
-        senderUserName: req.user.username,
+        text: `New message from ${req.user.username}`,
         receiverId: req.body.receiverId,
         isRead: false,
       });

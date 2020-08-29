@@ -2,28 +2,29 @@
 <div class="noteBox">
   <p class="noteBoxText">You have {{notes.length}} new notifications!</p>
   <div v-for="note in notes" :key="note.id" class="noteBoxText">
-    {{note.senderUserName}} has sent you new message! Check your chats
+    {{note.text}}
   </div>
 </div>
 </template>
 
 <script>
-import ChatsService from '@/services/ChatsService'
+import ChatsService from '@/services/ChatsService';
+
 export default {
-  data () {
+  data() {
     return {
-      notes: {}
-    }
+      notes: {},
+    };
   },
-  async mounted () {
-    this.notes = (await ChatsService.getNotes()).data
+  async mounted() {
+    this.notes = (await ChatsService.getNotes()).data;
     if (this.notes.length === 0) {
       this.$router.push({
-          name: 'offers'
-        })
+        name: 'offers',
+      });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

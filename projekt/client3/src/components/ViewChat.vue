@@ -24,91 +24,92 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
-import AuthenticationService from '@/services/AuthenticationService'
-import ChatsService from '@/services/ChatsService'
+import io from 'socket.io-client';
+import AuthenticationService from '@/services/AuthenticationService';
+import ChatsService from '@/services/ChatsService';
+
 export default {
-  data () {
+  data() {
     return {
       receiver: {},
       currentUserId: '',
       currentUserUserName: '',
       message: '',
       messages: [],
-      socket: null
-    }
+      socket: null,
+    };
   },
   methods: {
-    async sendMessage () {
+    async sendMessage() {
       if (this.message.length > 0) {
         try {
-          var dateNow = new Date()
+          const dateNow = new Date();
           await ChatsService.post({
             senderId: this.$store.state.user._id,
             receiverId: this.receiver._id,
             text: this.message,
-            createdAt: dateNow
-          })
+            createdAt: dateNow,
+          });
 
           this.socket.emit('SEND_MESSAGE', {
             senderId: this.$store.state.user._id,
             receiverId: this.receiver._id,
             text: this.message,
-            createdAt: dateNow
-          })
-          const messages = (await ChatsService.show(this.receiver._id)).data
-          this.messages = messages
-          this.message = ''
+            createdAt: dateNow,
+          });
+          const messages = (await ChatsService.show(this.receiver._id)).data;
+          this.messages = messages;
+          this.message = '';
         } catch (err) {
-          console.log(err)
+          this.$router.push({
+            name: 'offers',
+          });
         }
       }
     },
-    formatDate (date) {
-      return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + ' - ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
-    }
+    formatDate(date) {
+      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    },
   },
-  async mounted () {
+  async mounted() {
     if (!this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'offers'
-      })
+        name: 'offers',
+      });
     } else {
       try {
         this.socket = io(`wss://${window.location.host}`, {
           transports: ['websocket'],
-          upgrade: false
-        })
+          upgrade: false,
+        });
 
-        const userId = this.$store.state.route.params.userId
+        const { userId } = this.$store.state.route.params;
 
-        const receiver = (await AuthenticationService.show(userId)).data
-        this.receiver = receiver
-        this.receiverId =receiver._id
+        const receiver = (await AuthenticationService.show(userId)).data;
+        this.receiver = receiver;
+        this.receiverId = receiver._id;
 
-        this.currentUserId = this.$store.state.user._id
-        this.currentUserUserName = this.$store.state.user.username
+        this.currentUserId = this.$store.state.user._id;
+        this.currentUserUserName = this.$store.state.user.username;
 
-        this.messages = (await ChatsService.show(userId)).data
-        // console.log(this.offer)
+        this.messages = (await ChatsService.show(userId)).data;
 
         this.socket.on('MESSAGE', (data) => {
-          console.log('got message')
-          console.log('if ((' + data.receiverId + '===' + this.receiverId + '&&'  + data.senderId + '===' + this.$store.state.user._id + ') || (' + data.receiverId + '==='  + this.$store.state.user._id + '&&' + data.senderId + '===' + this.receiverId+ '))')
-          if ((data.receiverId === this.receiverId && data.senderId === this.$store.state.user._id) ||
-          (data.receiverId === this.$store.state.user._id && data.senderId === this.receiverId)) {
-            console.log('validated message')
-            this.messages.push(data)
-            
+          if (
+            (data.receiverId === this.receiverId && data.senderId === this.$store.state.user._id)
+            || (data.receiverId === this.$store.state.user._id && data.senderId === this.receiverId)) {
+            this.messages.push(data);
           }
-        })
+        });
       } catch (err) {
-        console.log(err)
+        this.$router.push({
+          name: 'offers',
+        });
       }
     }
-  }
+  },
 
-}
+};
 </script>
 
 <style scoped>

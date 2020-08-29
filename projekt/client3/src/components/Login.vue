@@ -21,45 +21,42 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService';
+
 export default {
-  data () {
+  data() {
     return {
       username: '',
       password: '',
-      error: ''
-    }
+      error: '',
+    };
   },
   methods: {
-    async login () {
-      if (this.username.length > 0 && this.password.length > 0 ) {
+    async login() {
+      if (this.username.length > 0 && this.password.length > 0) {
         try {
           const response = await AuthenticationService.login({
             username: this.username,
-            password: this.password
-          })
-          console.log(response.data)
-          this.$store.commit('login', response.data.user)
-
-          // this.$store.dispatch('setToken', response.data.token)
-          // this.$store.dispatch('setUser', response.data.user)
+            password: this.password,
+          });
+          this.$store.commit('login', response.data.user);
           this.$router.push({
-            name: 'notifications'
-          })
+            name: 'notifications',
+          });
         } catch (err) {
-          this.error = err.response.data.error
+          this.error = err.response.data.error;
         }
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     if (this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'notifications'
-      })
+        name: 'notifications',
+      });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

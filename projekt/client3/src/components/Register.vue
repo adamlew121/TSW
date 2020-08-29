@@ -22,43 +22,41 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService';
+
 export default {
-  data () {
+  data() {
     return {
       username: '',
       password: '',
-      error: ''
-    }
+      error: '',
+    };
   },
   methods: {
-    async register () {
-      if (this.username.length > 0 && this.password.length > 0 ) {
+    async register() {
+      if (this.username.length > 0 && this.password.length > 0) {
         try {
-          const response = await AuthenticationService.register({
+          await AuthenticationService.register({
             username: this.username,
-            password: this.password
-          })
-          console.log(response)
-          // this.$store.dispatch('setToken', response.data.token)
-          // this.$store.dispatch('setUser', response.data.user)
+            password: this.password,
+          });
           this.$router.push({
-            name: 'offers'
-          })
+            name: 'offers',
+          });
         } catch (err) {
-          this.error = err.response.data.error
+          this.error = err.response.data.error;
         }
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     if (this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'offers'
-      })
+        name: 'offers',
+      });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

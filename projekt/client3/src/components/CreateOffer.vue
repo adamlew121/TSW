@@ -30,39 +30,42 @@
 </template>
 
 <script>
-import OffersService from '@/services/OffersService'
+import OffersService from '@/services/OffersService';
+
 export default {
-  data () {
+  data() {
     return {
       offer: {
         title: null,
         bidding: false,
         price: null,
-        author: null
-      }
-    }
+        author: null,
+      },
+    };
   },
   methods: {
-    async create () {
+    async create() {
       try {
-        this.offer.author = this.$store.state.user._id
-        await OffersService.post(this.offer)
+        this.offer.author = this.$store.state.user._id;
+        await OffersService.post(this.offer);
         this.$router.push({
-          name: 'offers'
-        })
+          name: 'offers',
+        });
       } catch (err) {
-        console.log(err)
+        this.$router.push({
+          name: 'offers',
+        });
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     if (!this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'offers'
-      })
+        name: 'offers',
+      });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

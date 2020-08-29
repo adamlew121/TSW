@@ -17,7 +17,7 @@
    {{canStartBidding ? 'Click button to start bidding' : ''}}
    {{canFinishBidding ? 'Click button to finish bidding' : ''}}
   </p>
-    
+
     <hr/>
       <div v-if="!isAuthor(offer) && isLoggedIn()">
       <button @click="navigateTo({
@@ -72,14 +72,15 @@
 </template>
 
 <script>
-import Bidding from '@/components/Bidding'
-import OffersService from '@/services/OffersService'
-import AuthenticationService from '@/services/AuthenticationService'
+import Bidding from '@/components/Bidding.vue';
+import OffersService from '@/services/OffersService';
+import AuthenticationService from '@/services/AuthenticationService';
+
 export default {
   components: {
-    Bidding
+    Bidding,
   },
-  data () {
+  data() {
     return {
       offer: {},
       author: '',
@@ -87,88 +88,91 @@ export default {
       canEdit: false,
       canStartBidding: false,
       canFinishBidding: false,
-      canEnterBidding: false
-    }
+      canEnterBidding: false,
+    };
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    navigateTo(route) {
+      this.$router.push(route);
     },
-    async buy () {
+    async buy() {
       try {
-        await OffersService.buy(this.offer)
-        this.offer.closed = true
-        this.canBuy = false
+        await OffersService.buy(this.offer);
+        this.offer.closed = true;
+        this.canBuy = false;
       } catch (err) {
-        console.log(err)
+        this.$router.push({
+          name: 'offers',
+        });
       }
     },
-    async startBid () {
+    async startBid() {
       try {
-        const offer = (await OffersService.start(this.offer)).data
-        this.offer = offer
-        this.canStartBidding = false
-        this.canFinishBidding = true
+        const offer = (await OffersService.start(this.offer)).data;
+        this.offer = offer;
+        this.canStartBidding = false;
+        this.canFinishBidding = true;
       } catch (err) {
-        console.log(err)
+        this.$router.push({
+          name: 'offers',
+        });
       }
     },
-    async finishBid () {
+    async finishBid() {
       try {
-        const offer = (await OffersService.finish(this.offer)).data
-        this.offer = offer
-        this.canFinishBidding = false
+        const offer = (await OffersService.finish(this.offer)).data;
+        this.offer = offer;
+        this.canFinishBidding = false;
       } catch (err) {
-        console.log(err)
+        this.$router.push({
+          name: 'offers',
+        });
       }
     },
-    isAuthor (offer) {
-      return this.$store.state.isUserLoggedIn && offer.author === this.$store.state.user._id
+    isAuthor(offer) {
+      return this.$store.state.isUserLoggedIn && offer.author === this.$store.state.user._id;
     },
-    isLoggedIn () {
-      return this.$store.state.isUserLoggedIn
-    }
+    isLoggedIn() {
+      return this.$store.state.isUserLoggedIn;
+    },
   },
-  async mounted () {
-    const offerId = this.$store.state.route.params.offerId
-    this.offer = (await OffersService.show(offerId)).data
-    console.log(this.offer)
-    this.author = (await AuthenticationService.show(this.offer.author)).data
+  async mounted() {
+    const { offerId } = this.$store.state.route.params;
+    this.offer = (await OffersService.show(offerId)).data;
+    this.author = (await AuthenticationService.show(this.offer.author)).data;
 
     if (this.$store.state.isUserLoggedIn) {
-      if (this.offer.author === this.$store.state.user._id && !this.offer.closed && this.offer.biddingStatus === 1) {
-        console.log('can edit')
-        this.canEdit = true
+      if (this.offer.author === this.$store.state.user._id
+        && !this.offer.closed && this.offer.biddingStatus === 1) {
+        this.canEdit = true;
       } else {
-        console.log('cant edit')
-        this.canEdit = false
+        this.canEdit = false;
       }
 
-      if (this.offer.author === this.$store.state.user._id && !this.offer.closed && this.offer.bidding === true) {
+      if (this.offer.author === this.$store.state.user._id
+        && !this.offer.closed && this.offer.bidding === true) {
         if (this.offer.biddingStatus === 1) {
-          this.canStartBidding = true
+          this.canStartBidding = true;
         }
         if (this.offer.biddingStatus === 2) {
-          this.canFinishBidding = true
+          this.canFinishBidding = true;
         }
       }
 
-      if (this.offer.author !== this.$store.state.user._id && !this.offer.closed && this.offer.bidding === true && this.offer.biddingStatus === 2) {
-        this.canEnterBidding = true
+      if (this.offer.author !== this.$store.state.user._id && !this.offer.closed
+        && this.offer.bidding === true && this.offer.biddingStatus === 2) {
+        this.canEnterBidding = true;
       }
 
-      if (this.offer.author !== this.$store.state.user._id && !this.offer.closed && this.offer.bidding === false) {
-        console.log('can buy')
-        this.canBuy = true
+      if (this.offer.author !== this.$store.state.user._id
+        && !this.offer.closed && this.offer.bidding === false) {
+        this.canBuy = true;
       } else {
-        console.log('cant buy')
-        this.canBuy = false
+        this.canBuy = false;
       }
-      console.log('can edit: ' + this.canEdit)
-      console.log('can buy: ' + this.canBuy)
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

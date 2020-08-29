@@ -1,9 +1,9 @@
 const mongoose = require('../mongoose');
 
 const Notification = mongoose.model('Notification', {
-  senderUserName: { type: String, required: true },
   receiverId: { type: String, required: true },
   isRead: { type: Boolean, required: true },
+  text: { type: String, required: true },
 });
 
 Notification.processErrors = (err) => {

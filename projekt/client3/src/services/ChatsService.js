@@ -1,16 +1,16 @@
-import Api from '@/services/Api'
+import Api from '@/services/Api';
 
 export default {
-  index () {
-    return Api().get('chats')
+  index() {
+    return Api().get('chats');
   },
-  show (userId) {
-    return Api().get(`chats/${userId}`)
+  show(userId) {
+    return Api().get(`chats/${userId}`);
   },
-  post (message) {
-    return Api().post('chats', message)
+  post(message) {
+    return Api().post('chats', message);
   },
-  getNotes () {
-    return Api().get('notes')
-  }
-}
+  getNotes() {
+    return Api().get('notes');
+  },
+};

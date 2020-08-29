@@ -8,11 +8,12 @@
           offerId: offer._id
           }
         })">
-      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}} {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
+      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}}
+      {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
       {{offer.title}} <br/>
       {{offer.price}} USD <br/>
       {{getOption(offer)}} <br/>
-      
+
       <input class="cstInput"
       type="number"
       name="price"
@@ -26,18 +27,23 @@
     </div>
   </div>
   <div v-if="totalPages() > 0" class="pagination">
-    <span v-if="showPreviousLink()" class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt; </span>
+    <span v-if="showPreviousLink()"
+      class="pagination-btn" v-on:click="updatePage(currentPage - 1)"> &lt;
+    </span>
     {{ currentPage + 1 }} of {{ totalPages() }}
-    <span v-if="showNextLink()" class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt; </span>
+    <span v-if="showNextLink()"
+      class="pagination-btn" v-on:click="updatePage(currentPage + 1)"> &gt;
+    </span>
   </div>
 </div>
 </template>
 
 <script>
-import OffersService from '@/services/OffersService'
-import io from 'socket.io-client'
+import OffersService from '@/services/OffersService';
+import io from 'socket.io-client';
+
 export default {
-  data () {
+  data() {
     return {
       offers: {},
       visibleOffers: {},
@@ -45,84 +51,89 @@ export default {
       currentPage: 0,
       pageSize: 5,
       socket: io(`wss://${window.location.host}`, {
-          transports: ['websocket'],
-          upgrade: false
-        })
-    }
+        transports: ['websocket'],
+        upgrade: false,
+      }),
+    };
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    navigateTo(route) {
+      this.$router.push(route);
     },
-    updateVisibleOffers () {
-      this.visibleOffers = this.offers.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize)
+    updateVisibleOffers() {
+      this.visibleOffers = this.offers.slice(this.currentPage * this.pageSize,
+        (this.currentPage * this.pageSize) + this.pageSize);
+
       if (this.visibleOffers.length === 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
+        this.updatePage(this.currentPage - 1);
       }
     },
-    updatePage (pageNumber) {
-      this.currentPage = pageNumber
-      this.updateVisibleOffers()
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleOffers();
     },
-    totalPages () {
-      return Math.ceil(this.offers.length / this.pageSize)
+    totalPages() {
+      return Math.ceil(this.offers.length / this.pageSize);
     },
-    showPreviousLink () {
-      return this.currentPage !== 0
+    showPreviousLink() {
+      return this.currentPage !== 0;
     },
-    showNextLink () {
-      return this.currentPage !== (this.totalPages() - 1)
+    showNextLink() {
+      return this.currentPage !== (this.totalPages() - 1);
     },
-    isAuthor (offer) {
-      return this.$store.state.isUserLoggedIn && offer.author === this.$store.state.user._id
+    isAuthor(offer) {
+      return this.$store.state.isUserLoggedIn && offer.author === this.$store.state.user._id;
     },
-    getOption (offer) {
+    getOption(offer) {
       if (offer.bidding && offer.biddingStatus === 1) {
-        return 'Bidding not started'
+        return 'Bidding not started';
       }
       if (!offer.bidding && !offer.closed) {
-        return 'Buy now'
+        return 'Buy now';
       }
       if (offer.closed) {
-        return 'Bought'
+        return 'Bought';
       }
       if (offer.bidding && offer.biddingStatus === 2) {
-        return 'Bidding in progress'
+        return 'Bidding in progress';
       }
+      return 'Unknown status';
     },
-    async dynamicBid (offer) {
+    async dynamicBid(offer) {
       if (this.price > offer.price) {
         try {
           await OffersService.bid({
             offerId: offer._id,
-            price: this.price
-          })
+            price: this.price,
+          });
 
           this.socket.emit('SEND_BID', {
             bidderId: this.$store.state.user._id,
             bidderName: this.$store.state.user.username,
             price: this.price,
-            offerId: offer._id
-          })
-          this.offers = (await OffersService.historyBidding()).data
-          this.updateVisibleOffers()
+            offerId: offer._id,
+          });
+          this.offers = (await OffersService.historyBidding()).data;
+          this.updateVisibleOffers();
         } catch (err) {
-          console.log(err)
+          this.$router.push({
+            name: 'offers',
+          });
         }
       }
-    }
+    },
   },
-  async mounted () {
+  async mounted() {
     if (!this.$store.state.isUserLoggedIn) {
       this.$router.push({
-        name: 'offers'
-      })
+        name: 'offers',
+      });
     } else {
-      this.offers = (await OffersService.historyBidding()).data
-      this.updateVisibleOffers()
+      this.offers = (await OffersService.historyBidding()).data;
+      this.updateVisibleOffers();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
