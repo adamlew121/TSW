@@ -9,6 +9,7 @@
       placeholder="username"
     />
     <br />
+    <br />
     <input class="cstInput"
       type="password"
       name="password"
@@ -16,8 +17,9 @@
       placeholder="password"
     />
     <br />
+    <br />
     <div v-html="error"></div>
-    <button class="cstButton" @click="register">Register</button>
+    <button class="createButton" @click="register">Register</button>
   </div>
 </template>
 

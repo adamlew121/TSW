@@ -11,16 +11,23 @@
   <p>
   Created by {{author.username}}
   </p>
-  <p>
-   {{canBuy ? 'Buy now' : ''}}
-   {{canEnterBidding ? 'Bidding in progress' : ''}}
-   {{canStartBidding ? 'Click button to start bidding' : ''}}
-   {{canFinishBidding ? 'Click button to finish bidding' : ''}}
-  </p>
+  <div v-if="canBuy">
+    <br>Buy now
+  </div>
+  <div v-if="canEnterBidding">
+    <br>Bidding in progress
+  </div>
+  <div v-if="canStartBidding">
+    <br>Click button to start bidding
+  </div>
+  <div v-if="canFinishBidding">
+    <br>Click button to finish bidding
+  </div>
 
     <hr/>
       <div v-if="!isAuthor(offer) && isLoggedIn()">
-      <button @click="navigateTo({
+      <button class="createButton"
+      @click="navigateTo({
         name: 'chat',
         params: {
           userId: offer.author
@@ -30,12 +37,15 @@
       </button>
       </div>
     <br />
-    <div v-if="offer.closed">
-      Already bought
+    <div v-if="offer.closed && !buyer">
+      Offer canceled
+    </div>
+    <div v-if="offer.closed && buyer">
+      Already bought by {{buyer.username}}
     </div>
 
     <div v-if="canEdit">
-    <button
+    <button class="createButton"
     @click="navigateTo({
       name: 'offer-edit',
       params: {
@@ -47,20 +57,23 @@
     </div>
 
     <div v-if="canBuy">
-      <button @click="buy">
+      <button class="createButton"
+      @click="buy">
         Buy Offer
       </button>
     </div>
 
     <div v-if="canStartBidding">
-      <button @click="startBid">
+      <button class="createButton"
+      @click="startBid">
         Start Bidding
       </button>
     </div>
 
     <div v-if="canFinishBidding">
-      <button @click="finishBid">
-        Finish Bidding
+      <button class="createButton"
+      @click="finishBid">
+        Finish
       </button>
     </div>
 
@@ -84,6 +97,7 @@ export default {
     return {
       offer: {},
       author: '',
+      buyer: null,
       canBuy: false,
       canEdit: false,
       canStartBidding: false,
@@ -100,6 +114,7 @@ export default {
         await OffersService.buy(this.offer);
         this.offer.closed = true;
         this.canBuy = false;
+        this.buyer = this.$store.state.user;
       } catch (err) {
         this.$router.push({
           name: 'offers',
@@ -112,6 +127,7 @@ export default {
         this.offer = offer;
         this.canStartBidding = false;
         this.canFinishBidding = true;
+        this.canEdit = false;
       } catch (err) {
         this.$router.push({
           name: 'offers',
@@ -123,6 +139,7 @@ export default {
         const offer = (await OffersService.finish(this.offer)).data;
         this.offer = offer;
         this.canFinishBidding = false;
+        this.canEdit = false;
       } catch (err) {
         this.$router.push({
           name: 'offers',
@@ -140,6 +157,9 @@ export default {
     const { offerId } = this.$store.state.route.params;
     this.offer = (await OffersService.show(offerId)).data;
     this.author = (await AuthenticationService.show(this.offer.author)).data;
+    if (this.offer.buyer) {
+      this.buyer = (await AuthenticationService.show(this.offer.buyer)).data;
+    }
 
     if (this.$store.state.isUserLoggedIn) {
       if (this.offer.author === this.$store.state.user._id
@@ -159,9 +179,24 @@ export default {
         }
       }
 
-      if (this.offer.author !== this.$store.state.user._id && !this.offer.closed
+      if (this.offer.author === this.$store.state.user._id
+        && !this.offer.closed && !this.offer.bidding) {
+          this.canFinishBidding = true;        
+        }
+
+
+      if (this.$store.state.isUserLoggedIn === true && !this.offer.closed
         && this.offer.bidding === true && this.offer.biddingStatus === 2) {
         this.canEnterBidding = true;
+        console.log('can enter');
+      } else {
+        console.log('cant enter');
+        // console.log(this.$store.isUserLoggedIn);
+        // console.log(!this.offer.closed);
+        // console.log(this.offer.bidding === true);
+        // console.log(this.offer.biddingStatus === 2);
+        // console.log(this.$store);
+
       }
 
       if (this.offer.author !== this.$store.state.user._id

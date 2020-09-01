@@ -54,11 +54,19 @@ module.exports = {
   async post(req, res) {
     try {
       const message = await Message.create(req.body);
-      await Notification.create({
+
+      const existingNotifs = await Notification.find({
         text: `New message from ${req.user.username}`,
         receiverId: req.body.receiverId,
         isRead: false,
       });
+      if ((existingNotifs).length === 0) {
+        await Notification.create({
+          text: `New message from ${req.user.username}`,
+          receiverId: req.body.receiverId,
+          isRead: false,
+        });
+      }
       res.send(message);
     } catch (err) {
       res.status(500).send({

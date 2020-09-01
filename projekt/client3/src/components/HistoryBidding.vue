@@ -2,27 +2,29 @@
 <div class="main-app">
 
   <div class="cstGrid" >
-    <div class="cstGridField" v-for="(offer) in visibleOffers" :key="offer.id" @click="navigateTo({
+    <div v-for="(offer) in visibleOffers" :key="offer.id">
+      <div class="cstGridField" @click="navigateTo({
         name: 'offer',
         params: {
           offerId: offer._id
           }
         })">
-      {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}}
-      {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
-      {{offer.title}} <br/>
-      {{offer.price}} USD <br/>
-      {{getOption(offer)}} <br/>
-
+        {{isAuthor(offer) ? 'AUTHOR' : ''}} {{!isAuthor(offer) && offer.closed ? 'CLOSED' : ''}}
+        {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
+        {{offer.title}} <br/>
+        {{offer.price}} USD <br/>
+        {{getOption(offer)}} <br/>
+      </div>
+      <br />
       <input class="cstInput"
-      type="number"
-      name="price"
-      v-model="price"
-      placeholder="price"
-    />
-    <button class="cstButton"
-    @click="dynamicBid(offer)">
-      Bid
+        type="number"
+        name="price"
+        v-model="price"
+        placeholder="price"
+        />
+      <button class="createButton"
+        @click="dynamicBid(offer)">
+        Bid
       </button>
     </div>
   </div>

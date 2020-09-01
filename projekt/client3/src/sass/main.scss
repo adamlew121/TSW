@@ -6,26 +6,29 @@ $main-font-color:#f2b8c9;
   color: $main-font-color;
   padding: 1%;
   margin: 2%;
+  margin-top: 5%;
   text-align: center;
 
   .cstInput{
-    font-size: 1.5vw;
+    font-size: large;
   }
 
   .cstButton{
-    font-size: 1.5vw;
+    font-size: large;
   }
 
   .pagination{
     margin-top: 5%;
-    font-size: xx-large;
+    font-size: large;
   }
 
   .createButton{
+    margin-top: 2%;
+    margin-bottom: 2%;
     background: #293538;
-    font-size: 1.5vw;
-    color: $main-font-color;
-    border: none;
+    font-size: large;
+    color: white;
+    border-color: black;
     text-decoration: none;
     text-align: right;
     cursor: pointer;
@@ -40,39 +43,50 @@ html {
 }
 
 .mid-app{
+  margin-left: 5%;
   margin-top: 7%;
   color: $main-font-color;
   position: relative;
   background: $main-bg-color;
-  font-size: xx-large;
+  font-size: large;
   text-align: center;
-  margin-left: 10%;
   top: 10%;
   width: 80%;
 
   .cstInput{
-    font-size: 1.5vw;
+    font-size: large;
   }
 
   .cstButton{
-    font-size: 1.5vw;
+    font-size: large;
   }
 
+  .mid-table-username{
+    margin-right: 5%;
+  }
+  .mid-table-bid{
+    padding-left: 5%;
+    text-align: left;
+  }
 }
 
-.main-table{
+.chat{
   margin-top: 2%;
-  text-align: center;
-  width: 40%;
-  color: white;
-  font-size: xx-large;
 
+  .chat-line{
+    margin-top: 2%;
+    color: white;
+    text-align: left;
+    font-size: large;
+    padding-right: 2%;
 
-  td{
-    min-width: 4%;
+    .par-pink{
+      color: $main-font-color;
+      margin: 0;
     }
-
-  tr{
-    font-size: 1.3vw;
+    .par-yellow{
+      color: #F8DE7E;
+      margin: 0;
+    }
   }
 }

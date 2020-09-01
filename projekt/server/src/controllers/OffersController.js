@@ -88,12 +88,14 @@ module.exports = {
   },
   async buy(req, res) {
     try {
-      req.body.closed = true;
-      req.body.buyer = req.user.id;
-      await Offer.update({
-        _id: new mongodb.ObjectID(req.params.offerId),
-      }, req.body);
-      res.send(req.body);
+      if (!req.body.closed) {
+        req.body.closed = true;
+        req.body.buyer = req.user.id;
+        await Offer.update({
+          _id: new mongodb.ObjectID(req.params.offerId),
+        }, req.body);
+        res.send(req.body);
+      }
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to update the offer',
@@ -132,23 +134,25 @@ module.exports = {
       const offer = await Offer.findOne({
         _id: req.params.offerId,
       });
-      if (offer.price >= req.body.price) {
-        res.status(400).send({
-          error: 'Actual price is higher than bidded',
-        });
-      } else {
-        offer.price = req.body.price;
-        offer.buyer = req.user.id;
-        await Offer.update({
-          _id: new mongodb.ObjectID(req.params.offerId),
-        }, offer);
-        const bid = await Bid.create({
-          bidderId: req.user.id,
-          bidderName: req.user.username,
-          offerId: req.params.offerId,
-          price: req.body.price,
-        });
-        res.send(bid);
+      if (!offer.closed) {
+        if (offer.price >= req.body.price) {
+          res.status(400).send({
+            error: 'Actual price is higher than bidded',
+          });
+        } else {
+          offer.price = req.body.price;
+          offer.buyer = req.user.id;
+          await Offer.update({
+            _id: new mongodb.ObjectID(req.params.offerId),
+          }, offer);
+          const bid = await Bid.create({
+            bidderId: req.user.id,
+            bidderName: req.user.username,
+            offerId: req.params.offerId,
+            price: req.body.price,
+          });
+          res.send(bid);
+        }
       }
     } catch (err) {
       res.status(500).send({

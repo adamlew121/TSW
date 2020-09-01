@@ -3,16 +3,20 @@
       <div>
         <h3>Chat with user: {{receiver.username}}</h3>
         <hr>
-        <table id="chatbox" class="main-table">
-        <tr v-for="(msg, index) in messages" :key="index">
-         <td> {{ formatDate(new Date(msg.createdAt)) }}, </td>
-         <td>{{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}: </td>
-         <td> {{ msg.text }} </td>
-        </tr>
-
-        </table>
+        <div class="chat">
+          <div class="chat-line" v-for="(msg) in messages" :key = msg>
+            <p class="par-pink" v-if="msg.senderId === currentUserId">{{ formatDate(new Date(msg.createdAt)) }},
+            {{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}:
+            </p>
+            <p class="par-yellow" v-if="msg.senderId != currentUserId">{{ formatDate(new Date(msg.createdAt)) }},
+            {{ msg.senderId === currentUserId ? currentUserUserName : receiver.username }}:
+            </p>
+            {{ msg.text }}
+          </div>
+        </div>
       </div>
       <div>
+        <br />
         <form @submit.prevent="sendMessage">
           <div>
             <input type="text" v-model="message">
@@ -68,8 +72,17 @@ export default {
       }
     },
     formatDate(date) {
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      return `${this.checkDoubleDigit(date.getDate())}/${this.checkDoubleDigit(date.getMonth())}/
+      ${date.getFullYear()} - 
+      ${this.checkDoubleDigit(date.getHours())}:${this.checkDoubleDigit(date.getMinutes())}:${this.checkDoubleDigit(date.getSeconds())}`;
     },
+    checkDoubleDigit(value) {
+      if (value >= 10) {
+        return value;
+      } else {
+        return `0${value}`;
+      }
+    }
   },
   async mounted() {
     if (!this.$store.state.isUserLoggedIn) {

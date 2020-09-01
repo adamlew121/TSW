@@ -3,11 +3,13 @@
   Create offer
   <br />
   <input
+      class="createInput"
       type="text"
       name="title"
       v-model="offer.title"
       placeholder="Title"
     />
+    <br />
     <br />
     Allow bidding
     <input
@@ -17,15 +19,20 @@
       placeholder="Bidding"
     />
     <br />
+    <br />
+    Price
+    <br />
     <input
+      class="createInput"
       type="number"
       name="price"
       v-model="offer.price"
       placeholder="Price"
     />
-
     <br />
-    <button @click="create">Post Offer</button>
+    <br />
+    <button class="createButton"
+      @click="create">Post Offer</button>
 </div>
 </template>
 

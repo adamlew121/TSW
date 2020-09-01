@@ -52,7 +52,7 @@
   text-align: center;
   color: white;
   background-color: #293538;
-  font-size: xx-large;
+  font-size: x-large;
   cursor: pointer;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .pagination {
-  font-size: xx-large;
+  font-size: x-large;
   position: relative;
   color: #f2b8c9;
   margin-top: 2%;

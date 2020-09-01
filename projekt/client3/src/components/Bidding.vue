@@ -5,21 +5,23 @@
         <hr>
       </div>
       <div >
-        <table class="mid-table">
+        <table>
           <tr v-for="(bid, index) in bids" :key="index">
-          <td>{{ bid.bidderName }}: </td>
-          <td> {{ bid.price }} </td>
+          <td class="mid-table-username">{{ bid.bidderName }}: </td>
+          <td class="mid-table-bid"> {{ bid.price }} </td>
           </tr>
         </table>
       </div>
       <div>
-        <form @submit.prevent="sendMessage">
+        <br />
+        <form v-if="canBid" @submit.prevent="sendMessage">
           <div>
             <label for="price">Your Bid:</label>
+            <br />
             <input type="number" v-model="price">
           </div>
           <button v-bind:disabled="offer.biddingStatus !== 2"
-            type="submit" class="btn btn-success">Send
+            type="submit" class="createButton">Send
           </button>
         </form>
       </div>
@@ -37,6 +39,7 @@ export default {
       price: '',
       bids: [],
       socket: null,
+      canBid: true,
     };
   },
   methods: {
@@ -57,6 +60,7 @@ export default {
           this.offer = offer;
           this.price = '';
         } catch (err) {
+          console.log(err);
           this.$router.push({
             name: 'offers',
           });
@@ -83,6 +87,10 @@ export default {
 
         this.offer = (await OffersService.show(offerId)).data;
 
+        if (this.$store.state.user._id === this.offer.author) {
+          this.canBid = false;
+        }
+
         this.socket.on('BID', (data) => {
           if (data.offerId === this.offer._id) {
             this.bids.push(data);
@@ -90,6 +98,7 @@ export default {
           }
         });
       } catch (err) {
+        console.log(err);
         this.$router.push({
           name: 'offers',
         });

@@ -3,27 +3,30 @@
   color: #f2b8c9;
   padding: 1%;
   margin: 2%;
+  margin-top: 5%;
   text-align: center;
 }
 
 .main-app .cstInput {
-  font-size: 1.5vw;
+  font-size: large;
 }
 
 .main-app .cstButton {
-  font-size: 1.5vw;
+  font-size: large;
 }
 
 .main-app .pagination {
   margin-top: 5%;
-  font-size: xx-large;
+  font-size: large;
 }
 
 .main-app .createButton {
+  margin-top: 2%;
+  margin-bottom: 2%;
   background: #293538;
-  font-size: 1.5vw;
-  color: #f2b8c9;
-  border: none;
+  font-size: large;
+  color: white;
+  border-color: black;
   text-decoration: none;
   text-align: right;
   cursor: pointer;
@@ -37,38 +40,53 @@ html {
 }
 
 .mid-app {
+  margin-left: 5%;
   margin-top: 7%;
   color: #f2b8c9;
   position: relative;
   background: #152530;
-  font-size: xx-large;
+  font-size: large;
   text-align: center;
-  margin-left: 10%;
   top: 10%;
   width: 80%;
 }
 
 .mid-app .cstInput {
-  font-size: 1.5vw;
+  font-size: large;
 }
 
 .mid-app .cstButton {
-  font-size: 1.5vw;
+  font-size: large;
 }
 
-.main-table {
+.mid-app .mid-table-username {
+  margin-right: 5%;
+}
+
+.mid-app .mid-table-bid {
+  padding-left: 5%;
+  text-align: left;
+}
+
+.chat {
   margin-top: 2%;
-  text-align: center;
-  width: 40%;
+}
+
+.chat .chat-line {
+  margin-top: 2%;
   color: white;
-  font-size: xx-large;
+  text-align: left;
+  font-size: large;
+  padding-right: 2%;
 }
 
-.main-table td {
-  min-width: 4%;
+.chat .chat-line .par-pink {
+  color: #f2b8c9;
+  margin: 0;
 }
 
-.main-table tr {
-  font-size: 1.3vw;
+.chat .chat-line .par-yellow {
+  color: #F8DE7E;
+  margin: 0;
 }
 /*# sourceMappingURL=main.css.map */
