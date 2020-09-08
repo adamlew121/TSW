@@ -91,6 +91,7 @@ module.exports = {
       if (!req.body.closed) {
         req.body.closed = true;
         req.body.buyer = req.user.id;
+        req.body.buyerName = req.user.username;
         await Offer.update({
           _id: new mongodb.ObjectID(req.params.offerId),
         }, req.body);
@@ -142,6 +143,7 @@ module.exports = {
         } else {
           offer.price = req.body.price;
           offer.buyer = req.user.id;
+          offer.buyerName = req.user.username;
           await Offer.update({
             _id: new mongodb.ObjectID(req.params.offerId),
           }, offer);

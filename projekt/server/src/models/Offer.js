@@ -8,6 +8,7 @@ const Offer = mongoose.model('Offer', {
   author: { type: String, required: true },
   closed: { type: Boolean, required: false },
   buyer: { type: String, required: false },
+  buyerName: { type: String, required: false },
 });
 
 Offer.processErrors = (err) => {

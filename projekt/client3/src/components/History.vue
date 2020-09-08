@@ -37,6 +37,7 @@ export default {
       visibleOffers: {},
       currentPage: 0,
       pageSize: 5,
+      
     };
   },
   methods: {

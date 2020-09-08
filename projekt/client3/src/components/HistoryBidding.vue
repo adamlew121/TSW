@@ -13,6 +13,7 @@
         {{!isAuthor(offer) && !offer.closed ? 'OPEN' : ''}} <br/>
         {{offer.title}} <br/>
         {{offer.price}} USD <br/>
+        {{offer.buyerName + ' is winning'}} <br />
         {{getOption(offer)}} <br/>
       </div>
       <br />
@@ -101,6 +102,7 @@ export default {
       }
       return 'Unknown status';
     },
+
     async dynamicBid(offer) {
       if (this.price > offer.price) {
         try {
@@ -134,6 +136,16 @@ export default {
       this.offers = (await OffersService.historyBidding()).data;
       this.updateVisibleOffers();
     }
+
+    this.socket.on('BID', (data) => {
+          this.offers.map(offer => {
+            if (offer._id === data.offerId) {
+              offer.price = data.price;
+              offer.buyerName = data.bidderName;
+            }
+          });
+          this.updateVisibleOffers();
+        });
   },
 };
 </script>
